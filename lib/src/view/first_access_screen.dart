@@ -1,5 +1,11 @@
+// ignore_for_file: sort_child_properties_last, prefer_const_constructors
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 
@@ -22,26 +28,104 @@ class FirstAcessPageState extends State<FirstAcessPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(constants.appTitle),),
-      body: const Column(
-        children: [
-          //Welcome
-          Column(
+        body: Column(
+      children: [
+        //Welcome
+        Container(
+          width: double.infinity,
+          height: 340,
+          padding: EdgeInsets.only(left: 35.0, bottom: 20, right: 50),
+          decoration: BoxDecoration(color: colorHighlight),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
+              Text(constants.welcome,
+                  style: GoogleFonts.inika(
+                      textStyle: TextStyle(color: Colors.white, fontSize: 30))),
+              Text(constants.appTitle,
+                  style: GoogleFonts.kanit(
+                      textStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 50,
+                          fontWeight: FontWeight.w700))),
+              Text(constants.appDescription,
+                  style: GoogleFonts.inika(
+                      textStyle: TextStyle(color: Colors.white, fontSize: 20))),
             ],
           ),
-          //New User
-          Column(
-
+        ),
+        //New User
+        Container(
+          width: double.infinity,
+          height: 250,
+          padding: EdgeInsets.only(left: 35.0, bottom: 25, right: 50),
+          decoration: BoxDecoration(color: colorPrimary),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(constants.registerTitle,
+                  style: GoogleFonts.inika(
+                      textStyle: TextStyle(color: Colors.white, fontSize: 25))),
+              SizedBox(height: 15),
+              ElevatedButton(
+                onPressed: () {},
+                child: Text(
+                  constants.register,
+                  style: TextStyle(color: colorPrimary, fontSize: 16),
+                ),
+                style: ButtonStyle(
+                  shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10))),
+                  padding: MaterialStatePropertyAll(
+                      EdgeInsets.symmetric(vertical: 15, horizontal: 20)),
+                  backgroundColor:
+                      MaterialStatePropertyAll<Color>(colorSecondary),
+                ),
+              ),
+            ],
           ),
-          //Login
-          Column(
-
-          )
-
-        ],
-      )
-    );
+        ),
+        // //Login
+        Container(
+          width: double.infinity,
+          height: 300,
+          padding: EdgeInsets.only(left: 35.0, bottom: 20, right: 50, top: 40),
+          decoration: BoxDecoration(color: colorSecondary),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(constants.loginTitle,
+                  style: GoogleFonts.inika(
+                      textStyle: TextStyle(color: colorPrimary, fontSize: 25))),
+              SizedBox(height: 15),
+              ElevatedButton(
+                onPressed: () {},
+                child: Text(
+                  constants.login,
+                  style: TextStyle(color: colorSecondary, fontSize: 16),
+                ),
+                style: ButtonStyle(
+                  padding: MaterialStatePropertyAll(
+                      EdgeInsets.symmetric(vertical: 15, horizontal: 20)),
+                  shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10))),
+                  backgroundColor:
+                      MaterialStatePropertyAll<Color>(colorPrimary),
+                ),
+              ),
+              SizedBox(height: 20),
+              Image.asset(
+                'assets/images/pp_icon.png',
+                width: 100,
+                alignment: Alignment.bottomRight,
+              )
+            ],
+          ),
+        ),
+      ],
+    ));
   }
 }
