@@ -40,20 +40,21 @@ class _LoginFormState extends State<LoginForm> {
 
       if (existingUser == null) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Usuário não encontrado'),
+          content: Text('Usuário não encontrado.'),
         ));
         return;
-      }
+      } else if (existingUser.email != controllerEmail.text || existingUser.password != controllerPassword.text){
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Login ou senha incorretos.'),
+        ));
+        return;
+      } 
 
-      petparentDB.registerUser(
-          name: controllerName.text,
-          password: controllerPassword.text,
-          email: controllerEmail.text);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Usuário registrado com sucesso!'),
-        ),
-      );
+      Navigator.of(context).pushReplacementNamed('/home');
+
+
+
+
     }
 
     return Center(

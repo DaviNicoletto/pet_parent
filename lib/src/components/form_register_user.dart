@@ -55,7 +55,7 @@ class _RegisterFormState extends State<RegisterForm> {
           content: Text('Usuário registrado com sucesso!'),
         ),
       );
-      Navigator.of(context).pushNamed('/login');
+      Navigator.of(context).pushNamed('/');
     }
 
     return Center(
