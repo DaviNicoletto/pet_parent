@@ -15,7 +15,6 @@ class FirstAcessPageState extends State<FirstAcessPage> {
   final AppConstants constants = AppConstants();
 
   final AppColors colors = AppColors();
-  
 
   @override
   Widget build(BuildContext context) {
@@ -72,16 +71,18 @@ class FirstAcessPageState extends State<FirstAcessPage> {
                     },
                     child: Text(
                       constants.register,
-                      style: TextStyle(color: colors.colorPrimary, fontSize: 16),
+                      style:
+                          TextStyle(color: colors.colorPrimary, fontSize: 16),
                     ),
                     style: ButtonStyle(
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
                       padding: MaterialStatePropertyAll(
                           EdgeInsets.symmetric(vertical: 15, horizontal: 20)),
-                      backgroundColor:
-                          MaterialStatePropertyAll<Color>(colors.colorSecondary),
-                      overlayColor: MaterialStatePropertyAll(colors.colorSecondary),
+                      backgroundColor: MaterialStatePropertyAll<Color>(
+                          colors.colorSecondary),
+                      overlayColor:
+                          MaterialStatePropertyAll(colors.colorSecondary),
                     ),
                   ),
                 ],
@@ -101,14 +102,17 @@ class FirstAcessPageState extends State<FirstAcessPage> {
                 children: [
                   Text(constants.loginTitle,
                       style: GoogleFonts.inika(
-                          textStyle:
-                              TextStyle(color: colors.colorPrimary, fontSize: 25))),
+                          textStyle: TextStyle(
+                              color: colors.colorPrimary, fontSize: 25))),
                   SizedBox(height: 15),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      Navigator.of(context).pushNamed('/login');
+                    },
                     child: Text(
                       constants.login,
-                      style: TextStyle(color: colors.colorSecondary, fontSize: 16),
+                      style:
+                          TextStyle(color: colors.colorSecondary, fontSize: 16),
                     ),
                     style: ButtonStyle(
                       padding: MaterialStatePropertyAll(
@@ -117,7 +121,8 @@ class FirstAcessPageState extends State<FirstAcessPage> {
                           borderRadius: BorderRadius.circular(10))),
                       backgroundColor:
                           MaterialStatePropertyAll<Color>(colors.colorPrimary),
-                      overlayColor: MaterialStatePropertyAll(colors.colorHighlight),
+                      overlayColor:
+                          MaterialStatePropertyAll(colors.colorHighlight),
                     ),
                   ),
                   SizedBox(height: 20),

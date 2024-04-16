@@ -48,6 +48,7 @@ class FieldForm extends StatelessWidget {
           if (this.isEmail == true && !value.contains("@")){
             return('E-mail inválido!');
           }
+          return null;
         },
       ),
     );

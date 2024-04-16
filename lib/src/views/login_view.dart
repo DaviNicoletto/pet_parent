@@ -1,21 +1,19 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pet_parent/src/components/form_register_user.dart';
+import 'package:pet_parent/src/components/form_login.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 
-class RegisterUserPage extends StatefulWidget {
-  const RegisterUserPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<RegisterUserPage> createState() => _RegisterUserPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _RegisterUserPageState extends State<RegisterUserPage> {
+class _LoginPageState extends State<LoginPage> {
 
-  final AppConstants constants = AppConstants();
-  final AppColors colors = AppColors();
+  AppConstants constants = AppConstants();
+  AppColors colors = AppColors();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +40,7 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
                   Container(
                   margin: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                     child: Text(
-                      constants.register,
+                      constants.login,
                       textAlign: TextAlign.start,
                       style: GoogleFonts.inika(
                           textStyle: TextStyle(color: colors.colorHighlight, fontSize: 30)),
@@ -50,9 +48,9 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
                   ),
                   Container(
                     width: double.infinity,
-                    height:400,
+                    height:350,
                     decoration: BoxDecoration(color: colors.colorHighlight),
-                    child: RegisterForm(),
+                    child: LoginForm(),
                   ),
                 ],
               ),
