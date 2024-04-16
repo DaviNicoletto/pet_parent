@@ -1,4 +1,4 @@
-class PetModel {
+class Pet {
   final String name;
   final String gender;
   final String breed;
@@ -7,5 +7,5 @@ class PetModel {
   final String specialNecessities;
   final String schedule;
 
-  PetModel(this.name, this.gender, this.breed, this.color, this.age, this.specialNecessities, this.schedule);
+  Pet(this.name, this.gender, this.breed, this.color, this.age, this.specialNecessities, this.schedule);
 }

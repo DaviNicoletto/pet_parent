@@ -1,4 +1,4 @@
-class UserModel {
+class User {
   final String name;
   final String email;
   final String password;
@@ -6,5 +6,5 @@ class UserModel {
   final String telephoneNumber;
   final String loginUser;
 
-  UserModel(this.name, this.email, this.password, this.profilePicture, this.telephoneNumber, this.loginUser);
+  User(this.name, this.email, this.password, this.profilePicture, this.telephoneNumber, this.loginUser);
 }

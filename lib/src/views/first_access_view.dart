@@ -14,11 +14,8 @@ class FirstAcessPage extends StatefulWidget {
 class FirstAcessPageState extends State<FirstAcessPage> {
   final AppConstants constants = AppConstants();
 
-  final colorHighlight = Color(0xFFFF9934);
-  final colorSecondary = Color(0xFFE1F1F2);
-  final colorPrimary = Color(0xFF2CBBC3);
-  final colorTextLight = Color(0xFFF9F9F9);
-  final colorTextDark = Color(0xFF101010);
+  final AppColors colors = AppColors();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +28,7 @@ class FirstAcessPageState extends State<FirstAcessPage> {
               width: double.infinity,
               height: 340,
               padding: EdgeInsets.only(left: 35.0, bottom: 20, right: 50),
-              decoration: BoxDecoration(color: colorHighlight),
+              decoration: BoxDecoration(color: colors.colorHighlight),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +56,7 @@ class FirstAcessPageState extends State<FirstAcessPage> {
               width: double.infinity,
               height: 250,
               padding: EdgeInsets.only(left: 35.0, bottom: 25, right: 50),
-              decoration: BoxDecoration(color: colorPrimary),
+              decoration: BoxDecoration(color: colors.colorPrimary),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +70,7 @@ class FirstAcessPageState extends State<FirstAcessPage> {
                     onPressed: () {},
                     child: Text(
                       constants.register,
-                      style: TextStyle(color: colorPrimary, fontSize: 16),
+                      style: TextStyle(color: colors.colorPrimary, fontSize: 16),
                     ),
                     style: ButtonStyle(
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
@@ -81,8 +78,8 @@ class FirstAcessPageState extends State<FirstAcessPage> {
                       padding: MaterialStatePropertyAll(
                           EdgeInsets.symmetric(vertical: 15, horizontal: 20)),
                       backgroundColor:
-                          MaterialStatePropertyAll<Color>(colorSecondary),
-                      overlayColor: MaterialStatePropertyAll(colorSecondary),
+                          MaterialStatePropertyAll<Color>(colors.colorSecondary),
+                      overlayColor: MaterialStatePropertyAll(colors.colorSecondary),
                     ),
                   ),
                 ],
@@ -95,7 +92,7 @@ class FirstAcessPageState extends State<FirstAcessPage> {
               height: 300,
               padding:
                   EdgeInsets.only(left: 35.0, bottom: 20, right: 50, top: 40),
-              decoration: BoxDecoration(color: colorSecondary),
+              decoration: BoxDecoration(color: colors.colorSecondary),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,7 +100,7 @@ class FirstAcessPageState extends State<FirstAcessPage> {
                   Text(constants.loginTitle,
                       style: GoogleFonts.inika(
                           textStyle:
-                              TextStyle(color: colorPrimary, fontSize: 25))),
+                              TextStyle(color: colors.colorPrimary, fontSize: 25))),
                   SizedBox(height: 15),
                   ElevatedButton(
                     onPressed: () {
@@ -111,7 +108,7 @@ class FirstAcessPageState extends State<FirstAcessPage> {
                     },
                     child: Text(
                       constants.login,
-                      style: TextStyle(color: colorSecondary, fontSize: 16),
+                      style: TextStyle(color: colors.colorSecondary, fontSize: 16),
                     ),
                     style: ButtonStyle(
                       padding: MaterialStatePropertyAll(
@@ -119,8 +116,8 @@ class FirstAcessPageState extends State<FirstAcessPage> {
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
                       backgroundColor:
-                          MaterialStatePropertyAll<Color>(colorPrimary),
-                      overlayColor: MaterialStatePropertyAll(colorHighlight),
+                          MaterialStatePropertyAll<Color>(colors.colorPrimary),
+                      overlayColor: MaterialStatePropertyAll(colors.colorHighlight),
                     ),
                   ),
                   SizedBox(height: 20),

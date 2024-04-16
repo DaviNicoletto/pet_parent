@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
-import 'package:pet_parent/src/view/first_access_screen.dart';
-import 'package:pet_parent/src/view/login_page.dart';
+import 'package:pet_parent/src/user_provider.dart';
+import 'package:pet_parent/src/views/first_access_view.dart';
+import 'package:pet_parent/src/views/login_view.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,13 +12,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppConstants appConstants = AppConstants(); 
-    return MaterialApp(
-      title: appConstants.appTitle,
-      initialRoute: '/',
-      routes:{
-        '/' : (context) => const FirstAcessPage(),
-        '/login' : (context) => const LoginPage(),
-      },
+    return UserProvider(
+      child: MaterialApp(
+        title: appConstants.appTitle,
+        initialRoute: '/',
+        routes:{
+          '/' : (context) => const FirstAcessPage(),
+          '/login' : (context) => const LoginPage(),
+        },
+      ),
     );
   }
 }
