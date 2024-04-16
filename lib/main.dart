@@ -3,5 +3,5 @@ import 'src/app.dart';
 
 void main() async {
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
