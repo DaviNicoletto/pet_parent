@@ -6,6 +6,8 @@ class AppColors{
   Color get colorPrimary => Color(0xFF2CBBC3);
   Color get colorTextLight => Color(0xFFF9F9F9);
   Color get colorTextDark => Color(0xFF101010);
+  Color get colorSuccess => Color.fromARGB(255, 59, 207, 84);
+  Color get colorError => Color.fromARGB(255, 211, 22, 22);
 }
 
 class AppConstants {

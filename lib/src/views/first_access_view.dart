@@ -67,7 +67,9 @@ class FirstAcessPageState extends State<FirstAcessPage> {
                               TextStyle(color: Colors.white, fontSize: 25))),
                   SizedBox(height: 15),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/register');
+                    },
                     child: Text(
                       constants.register,
                       style: TextStyle(color: colors.colorPrimary, fontSize: 16),
@@ -103,9 +105,7 @@ class FirstAcessPageState extends State<FirstAcessPage> {
                               TextStyle(color: colors.colorPrimary, fontSize: 25))),
                   SizedBox(height: 15),
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/login');
-                    },
+                    onPressed: () {},
                     child: Text(
                       constants.login,
                       style: TextStyle(color: colors.colorSecondary, fontSize: 16),

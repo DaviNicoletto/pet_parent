@@ -2,9 +2,8 @@ class User {
   final String name;
   final String email;
   final String password;
-  final String profilePicture;
-  final String telephoneNumber;
-  final String loginUser;
+  // final String profilePicture;
+  // final String telephoneNumber;
 
-  User(this.name, this.email, this.password, this.profilePicture, this.telephoneNumber, this.loginUser);
+  User({required this.name, required this.email, required this.password});
 }

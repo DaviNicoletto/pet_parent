@@ -1,20 +1,18 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_parent/src/components/register_user_form.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterUserPage extends StatefulWidget {
+  const RegisterUserPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterUserPage> createState() => _RegisterUserPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterUserPageState extends State<RegisterUserPage> {
 
   final AppConstants constants = AppConstants();
   final AppColors colors = AppColors();
@@ -41,24 +39,20 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 30),
-                  SingleChildScrollView(
-                    child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                      child: Text(
-                        constants.login,
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.inika(
-                            textStyle: TextStyle(color: colors.colorHighlight, fontSize: 30)),
-                      ),
+                  Container(
+                  margin: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                    child: Text(
+                      constants.register,
+                      textAlign: TextAlign.start,
+                      style: GoogleFonts.inika(
+                          textStyle: TextStyle(color: colors.colorHighlight, fontSize: 30)),
                     ),
                   ),
-                  SingleChildScrollView(
-                    child: Container(
-                      width: double.infinity,
-                      height: 400,
-                      decoration: BoxDecoration(color: colors.colorHighlight),
-                      child: UserForm(),
-                    ),
+                  Container(
+                    width: double.infinity,
+                    height:400,
+                    decoration: BoxDecoration(color: colors.colorHighlight),
+                    child: UserForm(),
                   ),
                 ],
               ),

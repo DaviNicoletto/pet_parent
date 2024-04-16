@@ -7,7 +7,7 @@ class UserProvider extends InheritedWidget {
 
   @override
   final Widget child;
-  List<User> users = [];
+  final List<User> users = [];
 
   static UserProvider? of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<UserProvider>();
