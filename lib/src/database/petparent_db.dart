@@ -47,11 +47,12 @@ class PetparentDB {
     return User.fromSqfliteDatabase(user!.first);
   }
 
-  Future<User?> fetchUserByEmail(String email) async{
+  Future<User?> fetchUserByEmail(String email) async {
     final database = await DataBaseService().database;
-    final users = await database?.rawQuery('''SELECT * FROM $tableUsers WHERE email = ?''', [email]);
+    final users = await database
+        ?.rawQuery('''SELECT * FROM $tableUsers WHERE email = ?''', [email]);
 
-    if (users != null && users.isNotEmpty){
+    if (users != null && users.isNotEmpty) {
       return User.fromSqfliteDatabase(users.first);
     }
     return null;
@@ -61,17 +62,18 @@ class PetparentDB {
     final database = await DataBaseService().database;
 
     return await database!.update(
-        tableUsers,
-        {
-          if (password != null) 'password': password,
-        },
-        where: 'id = ?',
-        conflictAlgorithm: ConflictAlgorithm.rollback,
-        whereArgs: [id]);
+      tableUsers,
+      {
+        if (password != null) 'password': password,
+      },
+      where: 'id = ?',
+      whereArgs: [id],
+      conflictAlgorithm: ConflictAlgorithm.rollback,
+    );
   }
 
-  Future<void> delete(int id) async{
+  Future<void> delete(int id) async {
     final database = await DataBaseService().database;
-    await database?.rawDelete('''DELETE FROM $tableUsers WHERE id = ?''',[id]);
+    await database?.rawDelete('''DELETE FROM $tableUsers WHERE id = ?''', [id]);
   }
 }
