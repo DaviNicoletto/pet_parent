@@ -11,7 +11,13 @@ class AppColors{
 }
 
 class AppConstants {
+  
+  //General
   String get appTitle => 'Pet Parent';
+  String get goBack => 'Voltar';
+  String get success => 'Sucesso!';
+  String get error => 'Erro';
+
   //First access page
   String get welcome => 'Bem vindo (a) ao';
   String get appDescription => 'A plataforma completa para todos os pais e mães de pet!';
@@ -19,6 +25,10 @@ class AppConstants {
   String get register => 'Registrar nova conta';
   String get loginTitle => 'Se não, bem vindo de volta!';
   String get login => 'Entrar na conta';
+
+  //Register user
+  String get userRegistered => 'Usuário registrado com sucesso.';
+  String get existingUser => 'Este usuário já existe.';
 }
 
 class FormConstants {
