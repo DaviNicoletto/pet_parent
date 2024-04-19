@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:pet_parent/src/components/dialog_message.dart';
 import 'package:pet_parent/src/components/field_form.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 import 'package:pet_parent/src/database/petparent_db.dart';
@@ -17,7 +18,8 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController controllerEmail = TextEditingController();
   TextEditingController controllerPassword = TextEditingController();
 
-  FormConstants constants = FormConstants();
+  FormConstants fieldName = FormConstants();
+  AppConstants constants = AppConstants();
   AppColors colors = AppColors();
 
   Future<List<User>>? futureUsers;
@@ -40,22 +42,29 @@ class _RegisterFormState extends State<RegisterForm> {
           await petparentDB.fetchUserByEmail(controllerEmail.text);
 
       if (existingUser != null) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Este usuário já foi cadastrado!'),
-        ));
+        showDialog(
+          context: context,
+          builder: (context) => DialogMessage(
+              title: constants.error,
+              message: constants.existingUser,
+              buttonRoute: '/register',
+              buttonText: constants.goBack),
+        );
+      } else {
+        petparentDB.registerUser(
+            name: controllerName.text,
+            password: controllerPassword.text,
+            email: controllerEmail.text);
+        showDialog(
+          context: context,
+          builder: (context) => DialogMessage(
+              title: constants.success,
+              message: constants.userRegistered,
+              buttonRoute: '/login',
+              buttonText: constants.login),
+        );
         return;
       }
-
-      petparentDB.registerUser(
-          name: controllerName.text,
-          password: controllerPassword.text,
-          email: controllerEmail.text);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Usuário registrado com sucesso!'),
-        ),
-      );
-      Navigator.of(context).pushNamed('/');
     }
 
     return Center(
@@ -65,7 +74,7 @@ class _RegisterFormState extends State<RegisterForm> {
         child: Column(
           children: [
             FieldForm(
-              label: constants.nameField,
+              label: fieldName.nameField,
               controller: controllerName,
               isPassword: false,
               isEmail: false,
@@ -77,7 +86,7 @@ class _RegisterFormState extends State<RegisterForm> {
               isEmail: true,
             ),
             FieldForm(
-              label: constants.passwordField,
+              label: fieldName.passwordField,
               controller: controllerPassword,
               isPassword: true,
               isEmail: false,
@@ -91,7 +100,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     MaterialStatePropertyAll<Color>(colors.colorPrimary),
               ),
               child: Text(
-                constants.submmitForm,
+                fieldName.submmitForm,
                 style: TextStyle(color: colors.colorSecondary),
               ),
             )
