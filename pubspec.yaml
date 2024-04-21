@@ -10,6 +10,9 @@ environment:
   sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
+  cloud_firestore: ^4.17.0
+  firebase_auth: ^4.19.2
+  firebase_core: ^2.30.0
   flutter:
     sdk: flutter
   flutter_localizations:
@@ -19,7 +22,12 @@ dependencies:
   icons_launcher: ^2.1.7
   intl: ^0.18.1
   sqflite: ^2.3.3
+  syncfusion_flutter_calendar: ^25.1.40
 
+  path: any
+  get: ^4.6.6
+
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
