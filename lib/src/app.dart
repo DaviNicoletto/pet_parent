@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 import 'package:pet_parent/src/user_provider.dart';
-import 'package:pet_parent/src/views/first_access_view.dart';
+import 'package:pet_parent/src/views/onboarding_view.dart';
 import 'package:pet_parent/src/views/home_view.dart';
 import 'package:pet_parent/src/views/login_view.dart';
 import 'package:pet_parent/src/views/register_account_view.dart';
