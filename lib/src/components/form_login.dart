@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_parent/src/components/field_form.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
-import 'package:pet_parent/src/database/petparent_db.dart';
-import 'package:pet_parent/src/models/user_model.dart';
+import 'package:pet_parent/src/database/firebase_auth.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -16,15 +16,16 @@ class _LoginFormState extends State<LoginForm> {
   TextEditingController controllerEmail = TextEditingController();
   TextEditingController controllerPassword = TextEditingController();
 
-  FormConstants constants = FormConstants();
+  AppConstants constants = AppConstants();
+  FormConstants fieldName = FormConstants();
   AppColors colors = AppColors();
 
-  Future<List<User>>? futureUsers;
-  final petparentDB = PetparentDB();
 
   @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> _formKey = GlobalKey();
+    DBAuth authentication = DBAuth();
+
 
     void login() async {
       final isValid = _formKey.currentState?.validate();
@@ -33,27 +34,36 @@ class _LoginFormState extends State<LoginForm> {
         return;
       }
 
-      _formKey.currentState?.save();
+      await authentication.loginWithEmailAndPassword(email: controllerEmail.text,
+        password: controllerPassword.text, context: context);
 
-      final existingUser =
-          await petparentDB.fetchUserByEmail(controllerEmail.text);
+      // _formKey.currentState?.save();
 
-      if (existingUser == null) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Usuário não encontrado.'),
-        ));
-        return;
-      } else if (existingUser.email != controllerEmail.text || existingUser.password != controllerPassword.text){
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Login ou senha incorretos.'),
-        ));
-        return;
-      } 
+      // final existingUser =
+      //     await petparentDB.fetchUserByEmail(controllerEmail.text);
 
-      Navigator.of(context).pushReplacementNamed('/home');
-
-
-
+      // if (existingUser == null) {
+      //   showDialog(
+      //       context: context,
+      //       builder: (context) => DialogMessage(
+      //             title: constants.error,
+      //             message: constants.userNotFound,
+      //             buttonText: 'none',
+      //             buttonRoute: 'none',
+      //           ));
+      //   return;
+      // } else if (existingUser.email != controllerEmail.text ||
+      //     existingUser.password != controllerPassword.text) {
+      //   showDialog(
+      //       context: context,
+      //       builder: (context) => DialogMessage(
+      //             title: constants.error,
+      //             message: constants.incorrectLogin,
+      //             buttonText: 'none',
+      //             buttonRoute: 'none',
+      //           ));
+      //   return;
+      // }
 
     }
 
@@ -70,7 +80,7 @@ class _LoginFormState extends State<LoginForm> {
               isEmail: true,
             ),
             FieldForm(
-              label: constants.passwordField,
+              label: fieldName.passwordField,
               controller: controllerPassword,
               isPassword: true,
               isEmail: false,
@@ -84,7 +94,7 @@ class _LoginFormState extends State<LoginForm> {
                     MaterialStatePropertyAll<Color>(colors.colorPrimary),
               ),
               child: Text(
-                constants.submmitForm,
+                fieldName.submmitForm,
                 style: TextStyle(color: colors.colorSecondary),
               ),
             )

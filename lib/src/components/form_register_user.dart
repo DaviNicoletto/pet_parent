@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pet_parent/src/components/dialog_message.dart';
 import 'package:pet_parent/src/components/field_form.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
-import 'package:pet_parent/src/database/petparent_db.dart';
-import 'package:pet_parent/src/models/user_model.dart';
+import 'package:pet_parent/src/database/firebase_auth.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -22,49 +20,24 @@ class _RegisterFormState extends State<RegisterForm> {
   AppConstants constants = AppConstants();
   AppColors colors = AppColors();
 
-  Future<List<User>>? futureUsers;
-  final petparentDB = PetparentDB();
-
   @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> _formKey = GlobalKey();
 
     void save() async {
       final isValid = _formKey.currentState?.validate();
+      DBAuth firebaseAuth = DBAuth();
 
       if (isValid == false) {
         return;
       }
 
-      _formKey.currentState?.save();
-
-      final existingUser =
-          await petparentDB.fetchUserByEmail(controllerEmail.text);
-
-      if (existingUser != null) {
-        showDialog(
-          context: context,
-          builder: (context) => DialogMessage(
-              title: constants.error,
-              message: constants.existingUser,
-              buttonRoute: '/register',
-              buttonText: constants.goBack),
-        );
-      } else {
-        petparentDB.registerUser(
-            name: controllerName.text,
-            password: controllerPassword.text,
-            email: controllerEmail.text);
-        showDialog(
-          context: context,
-          builder: (context) => DialogMessage(
-              title: constants.success,
-              message: constants.userRegistered,
-              buttonRoute: '/login',
-              buttonText: constants.login),
-        );
-        return;
-      }
+      firebaseAuth.registerWithEmailAndPassword(
+        email: controllerEmail.text,
+        password: controllerPassword.text,
+        name: controllerName.text,
+        context: context,
+      );
     }
 
     return Center(

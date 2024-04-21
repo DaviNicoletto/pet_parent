@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../constants/app_constants.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,10 +9,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  AppConstants constants = AppConstants();
+  AppColors colors = AppColors();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('Página inical!'),),
+      appBar: AppBar(
+        title: Text(
+          constants.homePageTitle,
+          style: TextStyle(color: colors.colorTextLight),
+        ),
+        backgroundColor: colors.colorHighlight,
+      ),
+      body: const Center(
+        child: Text('Página inical!'),
+      ),
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 
 class DialogMessage extends StatefulWidget {
-  DialogMessage({
+  const DialogMessage({
     super.key,
     required this.title,
     required this.message,
@@ -59,9 +59,9 @@ class _DialogMessageState extends State<DialogMessage> {
         ),
       ],
       title: Text(widget.title),
-      contentPadding: EdgeInsets.all(15.0),
+      contentPadding: const EdgeInsets.all(15.0),
       content: Text(widget.message),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4)),),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4)),),
     );
   }
 }

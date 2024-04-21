@@ -36,9 +36,9 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   Container(
-                  margin: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                  margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                     child: Text(
                       constants.login,
                       textAlign: TextAlign.start,
@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                     width: double.infinity,
                     height:350,
                     decoration: BoxDecoration(color: colors.colorHighlight),
-                    child: LoginForm(),
+                    child: const LoginForm(),
                   ),
                 ],
               ),
