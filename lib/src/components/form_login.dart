@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_parent/src/components/field_form.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
@@ -23,19 +22,19 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> _formKey = GlobalKey();
+    GlobalKey<FormState> formKey = GlobalKey();
     DBAuth authentication = DBAuth();
 
 
     void login() async {
-      final isValid = _formKey.currentState?.validate();
+      final isValid = formKey.currentState?.validate();
 
       if (isValid == false) {
         return;
       }
 
       await authentication.loginWithEmailAndPassword(email: controllerEmail.text,
-        password: controllerPassword.text, context: context);
+        password: controllerPassword.text); 
 
       // _formKey.currentState?.save();
 
@@ -70,7 +69,7 @@ class _LoginFormState extends State<LoginForm> {
     return Center(
       child: SingleChildScrollView(
           child: Form(
-        key: _formKey,
+        key: formKey,
         child: Column(
           children: [
             FieldForm(

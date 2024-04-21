@@ -22,10 +22,10 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> _formKey = GlobalKey();
+    GlobalKey<FormState> formKey = GlobalKey();
 
     void save() async {
-      final isValid = _formKey.currentState?.validate();
+      final isValid = formKey.currentState?.validate();
       DBAuth firebaseAuth = DBAuth();
 
       if (isValid == false) {
@@ -36,14 +36,22 @@ class _RegisterFormState extends State<RegisterForm> {
         email: controllerEmail.text,
         password: controllerPassword.text,
         name: controllerName.text,
-        context: context,
       );
+
+      await showDialog(
+          context: context,
+          builder: (context) => DialogMessage(
+                title: constants.success,
+                message: constants.userRegistered,
+                buttonText: constants.login,
+                buttonRoute: '/login',
+              ));
     }
 
     return Center(
       child: SingleChildScrollView(
           child: Form(
-        key: _formKey,
+        key: formKey,
         child: Column(
           children: [
             FieldForm(
