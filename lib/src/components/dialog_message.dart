@@ -15,25 +15,20 @@ class DialogMessage extends StatefulWidget {
   final String buttonRoute;
   final String buttonText;
 
-
   @override
   State<DialogMessage> createState() => _DialogMessageState();
 }
 
 class _DialogMessageState extends State<DialogMessage> {
-
   @override
   Widget build(BuildContext context) {
-
-    String buttonText = widget.buttonText; 
+    String buttonText = widget.buttonText;
 
     AppColors colors = AppColors();
     AppConstants constants = AppConstants();
     if (widget.title == constants.error) {
-              setState(() {
-                buttonText = '';
-              }); 
-            }
+      buttonText = '';
+    }
     return AlertDialog(
       actions: [
         TextButton(
@@ -61,7 +56,9 @@ class _DialogMessageState extends State<DialogMessage> {
       title: Text(widget.title),
       contentPadding: const EdgeInsets.all(15.0),
       content: Text(widget.message),
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4)),),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(4)),
+      ),
     );
   }
 }

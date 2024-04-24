@@ -28,24 +28,19 @@ class _RegisterFormState extends State<RegisterForm> {
       final isValid = formKey.currentState?.validate();
       DBAuth firebaseAuth = DBAuth();
 
+      final BuildContext currentContext = context;
+
       if (isValid == false) {
         return;
       }
 
-      firebaseAuth.registerWithEmailAndPassword(
+      await firebaseAuth.registerWithEmailAndPassword(
         email: controllerEmail.text,
         password: controllerPassword.text,
         name: controllerName.text,
+        context: context,
       );
 
-      await showDialog(
-          context: context,
-          builder: (context) => DialogMessage(
-                title: constants.success,
-                message: constants.userRegistered,
-                buttonText: constants.login,
-                buttonRoute: '/login',
-              ));
     }
 
     return Center(

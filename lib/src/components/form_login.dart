@@ -34,7 +34,7 @@ class _LoginFormState extends State<LoginForm> {
       }
 
       await authentication.loginWithEmailAndPassword(email: controllerEmail.text,
-        password: controllerPassword.text); 
+        password: controllerPassword.text, context: context); 
 
       // _formKey.currentState?.save();
 
