@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pet_parent/src/components/dialog_message.dart';
 import 'package:pet_parent/src/components/field_form.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 import 'package:pet_parent/src/database/firebase_auth.dart';

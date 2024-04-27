@@ -11,7 +11,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   AppConstants constants = AppConstants();
   AppColors colors = AppColors();
 
@@ -19,13 +18,12 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: colors.colorHighlight),
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const SizedBox(height: 30),
             Image.asset(
               'assets/images/pp_logo.png',
               alignment: Alignment.center,
@@ -38,16 +36,18 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   const SizedBox(height: 30),
                   Container(
-                  margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 15),
                     child: Text(
                       constants.login,
                       textAlign: TextAlign.start,
                       style: GoogleFonts.inika(
-                          textStyle: TextStyle(color: colors.colorHighlight, fontSize: 30)),
+                          textStyle: TextStyle(
+                              color: colors.colorHighlight, fontSize: 30)),
                     ),
                   ),
-                  SizedBox(height: 30),
-                  LoginForm(),
+                  const SizedBox(height: 30),
+                  const LoginForm(),
                 ],
               ),
             ),

@@ -44,19 +44,6 @@ class _FieldFormState extends State<FieldForm> {
                   },
                 )
               : null,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-            borderSide: const BorderSide(),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: colors.colorHighlight),
-          ),
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          floatingLabelStyle: TextStyle(
-            color: colors.colorTextDark,
-          ),
-          filled: true,
-          fillColor: Colors.white,
           labelText: widget.label,
           labelStyle: GoogleFonts.inika(
             textStyle: TextStyle(color: colors.colorTextDark, fontSize: 20),

@@ -1,6 +1,5 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_parent/src/components/form_register_user.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
@@ -13,45 +12,42 @@ class RegisterUserPage extends StatefulWidget {
 }
 
 class _RegisterUserPageState extends State<RegisterUserPage> {
-
   final AppConstants constants = AppConstants();
   final AppColors colors = AppColors();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: colors.colorHighlight),
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const SizedBox(height: 30),
             Image.asset(
               'assets/images/pp_logo.png',
               alignment: Alignment.center,
               width: 100,
             ),
-            SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 30),
-                  Container(
-                  margin: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                    child: Text(
-                      constants.register,
-                      textAlign: TextAlign.start,
-                      style: GoogleFonts.inika(
-                          textStyle: TextStyle(color: colors.colorHighlight, fontSize: 30)),
-                    ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 30),
+                Container(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                  child: Text(
+                    constants.register,
+                    textAlign: TextAlign.start,
+                    style: GoogleFonts.inika(
+                        textStyle: TextStyle(
+                            color: colors.colorHighlight, fontSize: 30)),
                   ),
-                  SizedBox(height: 30),
-                  RegisterForm(),
-                ],
-              ),
+                ),
+                const SizedBox(height: 30),
+                const RegisterForm(),
+              ],
             ),
           ],
         ),
