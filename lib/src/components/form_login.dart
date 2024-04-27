@@ -36,33 +36,7 @@ class _LoginFormState extends State<LoginForm> {
       await authentication.loginWithEmailAndPassword(email: controllerEmail.text,
         password: controllerPassword.text, context: context); 
 
-      // _formKey.currentState?.save();
-
-      // final existingUser =
-      //     await petparentDB.fetchUserByEmail(controllerEmail.text);
-
-      // if (existingUser == null) {
-      //   showDialog(
-      //       context: context,
-      //       builder: (context) => DialogMessage(
-      //             title: constants.error,
-      //             message: constants.userNotFound,
-      //             buttonText: 'none',
-      //             buttonRoute: 'none',
-      //           ));
-      //   return;
-      // } else if (existingUser.email != controllerEmail.text ||
-      //     existingUser.password != controllerPassword.text) {
-      //   showDialog(
-      //       context: context,
-      //       builder: (context) => DialogMessage(
-      //             title: constants.error,
-      //             message: constants.incorrectLogin,
-      //             buttonText: 'none',
-      //             buttonRoute: 'none',
-      //           ));
-      //   return;
-      // }
+      formKey.currentState?.save();
 
     }
 

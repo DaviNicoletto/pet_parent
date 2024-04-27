@@ -24,11 +24,16 @@ class _RegisterFormState extends State<RegisterForm> {
   Widget build(BuildContext context) {
     GlobalKey<FormState> formKey = GlobalKey();
 
+    bool isPassword = true;
+    void toggleShowPassword() {
+      setState(() {
+        isPassword = !isPassword;
+      });
+    }
+
     void save() async {
       final isValid = formKey.currentState?.validate();
       DBAuth firebaseAuth = DBAuth();
-
-      final BuildContext currentContext = context;
 
       if (isValid == false) {
         return;
@@ -40,7 +45,6 @@ class _RegisterFormState extends State<RegisterForm> {
         name: controllerName.text,
         context: context,
       );
-
     }
 
     return Center(
@@ -64,7 +68,7 @@ class _RegisterFormState extends State<RegisterForm> {
             FieldForm(
               label: fieldName.passwordField,
               controller: controllerPassword,
-              isPassword: true,
+              isPassword: isPassword,
               isEmail: false,
             ),
             ElevatedButton(
@@ -72,6 +76,8 @@ class _RegisterFormState extends State<RegisterForm> {
               style: ButtonStyle(
                 padding: const MaterialStatePropertyAll<EdgeInsetsGeometry?>(
                     EdgeInsets.symmetric(vertical: 10, horizontal: 30)),
+                shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10))),
                 backgroundColor:
                     MaterialStatePropertyAll<Color>(colors.colorPrimary),
               ),
