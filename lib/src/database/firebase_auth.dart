@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 import 'package:pet_parent/src/database/firestore_db.dart';
 
@@ -40,9 +39,8 @@ class DBAuth {
         password: password,
       );
 
-      firebaseDB.createUser(name, email, password);
-
       if (context.mounted) {
+        firebaseDB.createUser(name, email, password, context);
         showDialog(
             context: context,
             builder: (context) => DialogMessage(
@@ -93,7 +91,7 @@ class DBAuth {
             context: context,
             builder: (context) => DialogMessage(
                   title: constants.error,
-                  message: _getErrorMessage(e.toString()),
+                  message: _getErrorMessage(e.code),
                   buttonRoute: '',
                   buttonText: '',
                 ));
