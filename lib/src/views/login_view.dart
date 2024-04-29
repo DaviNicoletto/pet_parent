@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pet_parent/src/components/form_login.dart';
+import 'package:pet_parent/src/widgets/form_login.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 
 class LoginPage extends StatefulWidget {

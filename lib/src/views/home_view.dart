@@ -16,11 +16,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+         automaticallyImplyLeading: false,
         title: Text(
           constants.homePageTitle,
           style: TextStyle(color: colors.colorTextLight),
         ),
-        backgroundColor: colors.colorHighlight,
       ),
       body: const Center(
         child: Text('Página inical!'),

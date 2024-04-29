@@ -5,6 +5,7 @@ import 'package:pet_parent/src/views/onboarding_view.dart';
 import 'package:pet_parent/src/views/home_view.dart';
 import 'package:pet_parent/src/views/login_view.dart';
 import 'package:pet_parent/src/views/register_account_view.dart';
+import 'package:pet_parent/src/widgets/auth_check.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -58,12 +59,13 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        initialRoute: '/',
+        initialRoute: '/authCheck',
         routes: {
           '/': (context) => const FirstAcessPage(),
           '/register': (context) => const RegisterUserPage(),
           '/login': (context) => const LoginPage(),
           '/home': (context) => const HomePage(),
+          '/authCheck': (context) => const AuthCheck(),
         },
       ),
     );

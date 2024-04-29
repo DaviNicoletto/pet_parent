@@ -66,8 +66,8 @@ class FirstAcessPageState extends State<FirstAcessPage> {
                               TextStyle(color: Colors.white, fontSize: 25))),
                   SizedBox(height: 15),
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/register');
+                    onPressed: () async {
+                      Navigator.of(context).pushReplacementNamed('/register');
                     },
                     child: Text(
                       constants.register,
@@ -107,7 +107,7 @@ class FirstAcessPageState extends State<FirstAcessPage> {
                   SizedBox(height: 15),
                   ElevatedButton(
                     onPressed: () async {
-                      Navigator.of(context).pushNamed('/login');
+                      Navigator.of(context).pushReplacementNamed('/login');
                     },
                     child: Text(
                       constants.login,

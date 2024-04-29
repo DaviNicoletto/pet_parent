@@ -1,43 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:pet_parent/src/components/field_form.dart';
+import 'package:pet_parent/src/widgets/field_form.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
-import 'package:pet_parent/src/database/firebase_auth.dart';
+import 'package:pet_parent/src/services/auth_service.dart';
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+class RegisterForm extends StatefulWidget {
+  const RegisterForm({super.key});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<RegisterForm> createState() => _RegisterFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _RegisterFormState extends State<RegisterForm> {
   TextEditingController controllerName = TextEditingController();
   TextEditingController controllerEmail = TextEditingController();
   TextEditingController controllerPassword = TextEditingController();
 
-  AppConstants constants = AppConstants();
   FormConstants fieldName = FormConstants();
+  AppConstants constants = AppConstants();
   AppColors colors = AppColors();
-
 
   @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> formKey = GlobalKey();
-    DBAuth authentication = DBAuth();
 
+    bool isPassword = true;
+    void toggleShowPassword() {
+      setState(() {
+        isPassword = !isPassword;
+      });
+    }
 
-    void login() async {
+    void save() async {
       final isValid = formKey.currentState?.validate();
+      DBAuth firebaseAuth = DBAuth();
 
       if (isValid == false) {
         return;
       }
 
-      await authentication.loginWithEmailAndPassword(email: controllerEmail.text,
-        password: controllerPassword.text, context: context); 
-
-      formKey.currentState?.save();
-
+      await firebaseAuth.registerWithEmailAndPassword(
+        email: controllerEmail.text,
+        password: controllerPassword.text,
+        name: controllerName.text,
+        context: context,
+      );
     }
 
     return Center(
@@ -47,6 +53,12 @@ class _LoginFormState extends State<LoginForm> {
         child: Column(
           children: [
             FieldForm(
+              label: fieldName.nameField,
+              controller: controllerName,
+              isPassword: false,
+              isEmail: false,
+            ),
+            FieldForm(
               label: 'E-mail',
               controller: controllerEmail,
               isPassword: false,
@@ -55,14 +67,16 @@ class _LoginFormState extends State<LoginForm> {
             FieldForm(
               label: fieldName.passwordField,
               controller: controllerPassword,
-              isPassword: true,
+              isPassword: isPassword,
               isEmail: false,
             ),
             ElevatedButton(
-              onPressed: login,
+              onPressed: save,
               style: ButtonStyle(
                 padding: const MaterialStatePropertyAll<EdgeInsetsGeometry?>(
                     EdgeInsets.symmetric(vertical: 10, horizontal: 30)),
+                shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10))),
                 backgroundColor:
                     MaterialStatePropertyAll<Color>(colors.colorPrimary),
               ),

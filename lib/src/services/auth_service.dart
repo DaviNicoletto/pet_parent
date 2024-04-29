@@ -1,14 +1,29 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
-import 'package:pet_parent/src/database/firestore_db.dart';
+import 'package:pet_parent/src/services/firestore_db.dart';
 
-import '../components/dialog_message.dart';
+import '../widgets/dialog_message.dart';
 
-class DBAuth {
+class DBAuth extends ChangeNotifier {
+  DBAuth() {
+    _authCheck();
+  }
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final CloudDatabase firebaseDB = CloudDatabase();
+  User? loggedUser;
+  bool isLoading = true;
+
   AppConstants constants = AppConstants();
+
+  _authCheck() {
+    _auth.authStateChanges().listen((User? user) {
+      loggedUser = (user == null) ? null : user;
+      isLoading = false;
+      notifyListeners();
+    });
+  }
 
   String _getErrorMessage(String code) {
     switch (code) {
@@ -79,7 +94,7 @@ class DBAuth {
       final userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (context.mounted) {
-        Navigator.of(context).pushReplacementNamed('/home');
+        await Navigator.of(context).pushReplacementNamed('/home');
       }
     } on FirebaseAuthException catch (e) {
       if (context.mounted) {

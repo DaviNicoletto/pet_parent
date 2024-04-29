@@ -26,6 +26,7 @@ dependencies:
 
   path: any
   get: ^4.6.6
+  provider: ^6.1.2
 
   
 dev_dependencies:
