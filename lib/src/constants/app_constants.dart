@@ -35,11 +35,13 @@ class AppConstants {
   //Register user
   String get userRegistered => 'Usuário registrado com sucesso.';
 
-  //Login and Register errors
-  String get incorrectLogin => 'Login ou senha incorretos.';
+  //Error Messages
+  String get generalError => 'Ocorreu um erro, tente novamente.';
+  String get incorrectLogin => 'E-mail ou senha incorretos.';
   String get existingUser => 'O E-mail inserido já está cadastrado.';
   String get weakPassword => 'A senha inserida não é forte o bastante.';
-  String get generalError => 'Ocorreu um erro, tente novamente.';
+  String get invalidEmailAdress => 'O E-mail inserido é inválido.';
+  String get authenticationError => 'Houve um erro de autenticação';
 
 }
 
