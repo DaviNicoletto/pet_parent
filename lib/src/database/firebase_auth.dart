@@ -13,17 +13,13 @@ class DBAuth {
   String _getErrorMessage(String code) {
     switch (code) {
       case 'email-already-in-use':
-        return 'Este e-mail já está cadastrado.';
+        return constants.existingUser;
       case 'invalid-email':
-        return 'Endereço de e-mail inserido é inválido.';
-      case 'user-not-found':
-        return 'Nenhum usuário encontrado para este e-mail.';
-      case 'wrong-password':
-        return 'Senha incorreta fornecida para este usuário.';
+        return constants.invalidEmailAdress;
       case 'invalid-credential':
-        return 'E-mail ou senha incorretos.';
+        return constants.incorrectLogin;
       default:
-        return 'Erro de autenticação: $code';
+        return '${constants.authenticationError}: $code';
     }
   }
 
