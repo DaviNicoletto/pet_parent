@@ -43,6 +43,10 @@ class AppConstants {
   String get invalidEmailAdress => 'O E-mail inserido é inválido.';
   String get authenticationError => 'Houve um erro de autenticação';
 
+  //Home Page
+  String get mySchedule => 'Minha agenda';
+  
+
 }
 
 class FormConstants {

@@ -58,6 +58,9 @@ class MyApp extends StatelessWidget {
               color: colors.colorSecondary,
             ),
           ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            selectedItemColor: colors.colorHighlight,
+          ),
         ),
         initialRoute: '/authCheck',
         routes: {
