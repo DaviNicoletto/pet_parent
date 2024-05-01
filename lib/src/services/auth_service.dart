@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 import 'package:pet_parent/src/services/firestore_db.dart';
+import 'package:pet_parent/src/views/home_view.dart';
 
 import '../widgets/dialog_message.dart';
 
@@ -94,7 +95,7 @@ class DBAuth extends ChangeNotifier {
       final userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (context.mounted) {
-        await Navigator.of(context).pushReplacementNamed('/home');
+        await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(),));
       }
     } on FirebaseAuthException catch (e) {
       if (context.mounted) {
