@@ -1,4 +1,4 @@
-// ignore_for_file: sort_child_properties_last, prefer_const_constructors
+
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,7 +26,7 @@ class FirstAcessPageState extends State<FirstAcessPage> {
             Container(
               width: double.infinity,
               height: 340,
-              padding: EdgeInsets.only(left: 35.0, bottom: 20, right: 50),
+              padding: const EdgeInsets.only(left: 35.0, bottom: 20, right: 50),
               decoration: BoxDecoration(color: colors.colorHighlight),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -35,17 +35,17 @@ class FirstAcessPageState extends State<FirstAcessPage> {
                   Text(constants.welcome,
                       style: GoogleFonts.inika(
                           textStyle:
-                              TextStyle(color: Colors.white, fontSize: 30))),
+                              const TextStyle(color: Colors.white, fontSize: 30))),
                   Text(constants.appTitle,
                       style: GoogleFonts.kanit(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                               color: Colors.white,
                               fontSize: 50,
                               fontWeight: FontWeight.w700))),
                   Text(constants.appDescription,
                       style: GoogleFonts.inika(
                           textStyle:
-                              TextStyle(color: Colors.white, fontSize: 20))),
+                              const TextStyle(color: Colors.white, fontSize: 20))),
                 ],
               ),
             ),
@@ -53,7 +53,7 @@ class FirstAcessPageState extends State<FirstAcessPage> {
             Container(
               width: double.infinity,
               height: 250,
-              padding: EdgeInsets.only(left: 35.0, bottom: 25, right: 50),
+              padding: const EdgeInsets.only(left: 35.0, bottom: 25, right: 50),
               decoration: BoxDecoration(color: colors.colorPrimary),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -62,26 +62,26 @@ class FirstAcessPageState extends State<FirstAcessPage> {
                   Text(constants.registerTitle,
                       style: GoogleFonts.inika(
                           textStyle:
-                              TextStyle(color: Colors.white, fontSize: 25))),
-                  SizedBox(height: 15),
+                              const TextStyle(color: Colors.white, fontSize: 25))),
+                  const SizedBox(height: 15),
                   ElevatedButton(
                     onPressed: () async {
                       Navigator.of(context).pushReplacementNamed('/register');
                     },
-                    child: Text(
-                      constants.register,
-                      style:
-                          TextStyle(color: colors.colorPrimary, fontSize: 16),
-                    ),
                     style: ButtonStyle(
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
-                      padding: MaterialStatePropertyAll(
+                      padding: const MaterialStatePropertyAll(
                           EdgeInsets.symmetric(vertical: 15, horizontal: 20)),
                       backgroundColor: MaterialStatePropertyAll<Color>(
                           colors.colorSecondary),
                       overlayColor:
                           MaterialStatePropertyAll(colors.colorSecondary),
+                    ),
+                    child: Text(
+                      constants.register,
+                      style:
+                          TextStyle(color: colors.colorPrimary, fontSize: 16),
                     ),
                   ),
                 ],
@@ -93,7 +93,7 @@ class FirstAcessPageState extends State<FirstAcessPage> {
               width: double.infinity,
               height: 300,
               padding:
-                  EdgeInsets.only(left: 35.0, bottom: 20, right: 50, top: 40),
+                  const EdgeInsets.only(left: 35.0, bottom: 20, right: 50, top: 40),
               decoration: BoxDecoration(color: colors.colorSecondary),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -103,18 +103,13 @@ class FirstAcessPageState extends State<FirstAcessPage> {
                       style: GoogleFonts.inika(
                           textStyle: TextStyle(
                               color: colors.colorPrimary, fontSize: 25))),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   ElevatedButton(
                     onPressed: () async {
                       Navigator.of(context).pushReplacementNamed('/login');
                     },
-                    child: Text(
-                      constants.login,
-                      style:
-                          TextStyle(color: colors.colorSecondary, fontSize: 16),
-                    ),
                     style: ButtonStyle(
-                      padding: MaterialStatePropertyAll(
+                      padding: const MaterialStatePropertyAll(
                           EdgeInsets.symmetric(vertical: 15, horizontal: 20)),
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
@@ -123,8 +118,13 @@ class FirstAcessPageState extends State<FirstAcessPage> {
                       overlayColor:
                           MaterialStatePropertyAll(colors.colorHighlight),
                     ),
+                    child: Text(
+                      constants.login,
+                      style:
+                          TextStyle(color: colors.colorSecondary, fontSize: 16),
+                    ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Image.asset(
                     'assets/images/pp_icon.png',
                     width: 100,
