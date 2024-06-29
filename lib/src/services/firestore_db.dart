@@ -23,13 +23,13 @@ String _getErrorMessage(String code) {
 class CloudDatabase {
   final FirebaseFirestore _firestoreDB = FirebaseFirestore.instance;
 
-  Future<void> createUser (name, email, password, context) async {
+  Future<void> createUser (name, email, password, context, userId) async {
   User user = User(name: name, email: email, password: password);
   Map<String, dynamic> userData = user.toJson();
   AppConstants constants = AppConstants();
 
   try{
-    await _firestoreDB.collection('users').add(userData);
+    await _firestoreDB.collection('users').doc(userId).set(userData);
   }catch (e){
     if (context.mounted) {
         showDialog(
@@ -42,5 +42,9 @@ class CloudDatabase {
                 ));
       }
   }
+  }
+
+  Future<void> addNewAppointment (context) async {
+    Navigator.of(context).pop();
   }
 }

@@ -45,14 +45,17 @@ class DBAuth extends ChangeNotifier {
       required String name,
       required BuildContext context}) async {
     try {
+      // ignore: unused_local_variable
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
+      String uId = userCredential.user!.uid;
+
       if (context.mounted) {
-        firebaseDB.createUser(name, email, password, context);
+        firebaseDB.createUser(name, email, password, context, uId);
         showDialog(
             context: context,
             builder: (context) => DialogMessage(
@@ -92,10 +95,11 @@ class DBAuth extends ChangeNotifier {
       required password,
       required BuildContext context}) async {
     try {
+      // ignore: unused_local_variable
       final userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (context.mounted) {
-        await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(),));
+        await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage(),));
       }
     } on FirebaseAuthException catch (e) {
       if (context.mounted) {

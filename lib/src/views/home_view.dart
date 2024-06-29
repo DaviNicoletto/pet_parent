@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:path/path.dart';
+import 'package:pet_parent/src/widgets/appointment_modal_widget.dart';
 import 'package:pet_parent/src/widgets/custom_navigation_bar.dart';
 import '../constants/app_constants.dart';
+import '../widgets/section_container.dart';
+import '../widgets/calendar_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -33,27 +34,50 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.all(20),
-              margin: const EdgeInsets.symmetric(vertical: 30),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(.3),
-                    spreadRadius: 2,
-                    blurRadius: 7,
-                    offset: Offset(0, 0), // changes position of shadow
-                  ),
-                ],
-              ),
+            SectionContainer(
+              constants: constants,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(constants.mySchedule),
+                  Text(
+                    constants.mySchedule,
+                    style: GoogleFonts.inika(
+                      textStyle: TextStyle(fontSize: constants.titleFontSize),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  CalendarWidget(),
                 ],
               ),
             ),
+            Expanded(
+              child: Stack(
+                children: [
+                  Positioned(
+                    bottom: 10,
+                    right: 10,
+                    child: Container(
+                      width: 70,
+                      height: 70,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) => const AppointmentModal());
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll<Color>(
+                            colors.colorHighlight),
+                            
+                          ),
+                          child: const Text("+", style: TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.w300)),
+                                        ),
+                    )
+              )],
+              ),
+            )
           ],
         ),
       ),

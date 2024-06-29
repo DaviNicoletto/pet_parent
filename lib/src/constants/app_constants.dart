@@ -11,12 +11,20 @@ class AppColors{
 }
 
 class AppConstants {
+
+  //Font Sizes
+  double get titleFontSize => 25;
+  double get secondTitleFontSize => 20;
+  double get textFontSize => 15;
+  double get subTextFontSize => 10;
   
-  //General
+  //General Strings
   String get appTitle => 'Pet Parent';
   String get goBack => 'Voltar';
   String get success => 'Sucesso!';
   String get error => 'Erro';
+  String get add => 'Adicionar';
+  
 
   //Page Titles
   String get homePageTitle => 'Início';
