@@ -4,6 +4,7 @@ import 'package:pet_parent/src/user_provider.dart';
 import 'package:pet_parent/src/views/onboarding_view.dart';
 import 'package:pet_parent/src/views/home_view.dart';
 import 'package:pet_parent/src/views/login_view.dart';
+import 'package:pet_parent/src/views/pets_view.dart';
 import 'package:pet_parent/src/views/register_account_view.dart';
 import 'package:pet_parent/src/widgets/auth_check.dart';
 
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
             filled: true,
             fillColor: Colors.white,
           ),
+          dialogTheme: const DialogTheme(surfaceTintColor: Colors.white),
           textSelectionTheme: TextSelectionThemeData(
             cursorColor: colors.colorHighlight,
           ),
