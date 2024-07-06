@@ -11,11 +11,11 @@ class CustomBottomNavigationBar extends StatefulWidget {
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   AppColors colors = AppColors();
-  int _selectedIndex = 0;
+  int selectedIndex = 0;
 
   void _ontItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedIndex = index;
     });
   }
 
@@ -41,7 +41,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           label: 'Perfil',
         ),
       ],
-      currentIndex: _selectedIndex,
+      currentIndex: selectedIndex,
       onTap: _ontItemTapped,
     );
   }

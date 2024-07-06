@@ -27,7 +27,7 @@ class _FieldFormState extends State<FieldForm> {
     AppColors colors = AppColors();
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: TextFormField(
         obscureText: isHidden,
         controller: widget.controller,
@@ -46,7 +46,7 @@ class _FieldFormState extends State<FieldForm> {
               : null,
           labelText: widget.label,
           labelStyle: GoogleFonts.inika(
-            textStyle: TextStyle(color: colors.colorTextDark, fontSize: 20),
+            textStyle: TextStyle(color: colors.colorTextDark, fontSize: 15),
           ),
         ),
         validator: (value) {
