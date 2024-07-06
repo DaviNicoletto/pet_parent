@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
@@ -99,7 +101,11 @@ class DBAuth extends ChangeNotifier {
       final userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (context.mounted) {
-        await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage(),));
+        await Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ));
       }
     } on FirebaseAuthException catch (e) {
       if (context.mounted) {
@@ -125,4 +131,13 @@ class DBAuth extends ChangeNotifier {
       }
     }
   }
+
+Future<String?> getLoggedUserId() async {
+
+  String? userId = "";
+  if (_auth.currentUser != null){
+    userId =  _auth.currentUser?.uid;
+  }
+  return userId;
+}
 }
