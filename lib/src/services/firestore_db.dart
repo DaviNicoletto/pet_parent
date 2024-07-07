@@ -67,7 +67,11 @@ class CloudDatabase {
           .collection("users")
           .doc(userId)
           .collection("pets")
-          .add(petData);
+          .doc(pet.name)
+          .set(petData);
+
+    Navigator.of(context).pop();
+
     } catch (e) {
       if (context.mounted) {
         showDialog(
@@ -81,6 +85,7 @@ class CloudDatabase {
       }
     }
 
-    Navigator.of(context).pop();
   }
+
+  Future<void> listPets(context) async {}
 }
