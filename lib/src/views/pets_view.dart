@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
+import 'package:pet_parent/src/services/firestore_db.dart';
 import 'package:pet_parent/src/widgets/add_pet_modal_widget.dart';
+import 'package:pet_parent/src/widgets/list_pets_widget.dart';
+import '../services/firestore_db.dart';
 import '../widgets/appointment_modal_widget.dart';
 import '../widgets/custom_navigation_bar.dart';
 
@@ -18,13 +21,16 @@ class PetsPage extends StatefulWidget {
   State<PetsPage> createState() => _PetsPageState();
 }
 
+
 class _PetsPageState extends State<PetsPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
           Card(),
+          PetsList(),
           Expanded(
             child: Stack(
               children: [

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_parent/src/services/auth_service.dart';
 import 'package:pet_parent/src/widgets/dialog_message.dart';
 
 import '../models/pet_model.dart';
@@ -70,8 +71,7 @@ class CloudDatabase {
           .doc(pet.name)
           .set(petData);
 
-    Navigator.of(context).pop();
-
+      Navigator.of(context).pop();
     } catch (e) {
       if (context.mounted) {
         showDialog(
@@ -84,8 +84,17 @@ class CloudDatabase {
                 ));
       }
     }
-
   }
 
-  Future<void> listPets(context) async {}
+  Future<void> listPets(BuildContext context, String? userId) async {
+
+    final collRef = _firestoreDB.collection('users').doc(userId).collection("pets");
+    collRef.get().then((querySnapshot) {
+      print("PEGOU OS PETS");
+      for (var docSnapshot in querySnapshot.docs){
+        print(docSnapshot.id);
+      }
+    }, onError: (e) => print("DEU ERRO AO PEGAR OS PETS: ${e}")
+    );
+  }
 }

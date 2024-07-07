@@ -17,7 +17,7 @@ class PetModal extends StatefulWidget {
 class _PetModalState extends State<PetModal> {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _nameControllerPet = TextEditingController();
+  final TextEditingController _nameControllerPet = TextEditingController();
   TextEditingController _ageControllerPet = TextEditingController();
   TextEditingController _breedControllerPet = TextEditingController();
   TextEditingController _typeControllerPet = TextEditingController();
