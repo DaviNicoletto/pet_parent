@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_parent/src/views/pets_view.dart';
+import 'package:pet_parent/src/widgets/app_bar_widget.dart';
 import 'package:pet_parent/src/widgets/appointment_modal_widget.dart';
 import 'package:pet_parent/src/widgets/custom_navigation_bar.dart';
 import '../constants/app_constants.dart';
@@ -38,17 +39,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text(
-            constants.homePageTitle,
-            style: GoogleFonts.inika(
-                textStyle: const TextStyle(color: Colors.white)),
-          ),
-          actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
-          ]),
+      appBar: customAppBar(),
 
       body: Center(child: _widgetOptions.elementAt(_selectedIndex),),
       

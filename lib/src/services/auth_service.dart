@@ -2,9 +2,13 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_parent/main.dart';
+import 'package:pet_parent/src/app.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 import 'package:pet_parent/src/services/firestore_db.dart';
 import 'package:pet_parent/src/views/home_view.dart';
+import 'package:pet_parent/src/views/onboarding_view.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/dialog_message.dart';
 
@@ -12,6 +16,10 @@ class DBAuth extends ChangeNotifier {
   DBAuth() {
     _authCheck();
   }
+
+  bool _isSignedIn = false;
+
+  bool get isSignedIn => _isSignedIn;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final CloudDatabase firebaseDB = CloudDatabase();
@@ -106,6 +114,10 @@ class DBAuth extends ChangeNotifier {
             MaterialPageRoute(
               builder: (context) => const HomePage(),
             ));
+        _isSignedIn = true;
+        notifyListeners();
+            print("logado:${isSignedIn}" );
+
       }
     } on FirebaseAuthException catch (e) {
       if (context.mounted) {
@@ -132,12 +144,28 @@ class DBAuth extends ChangeNotifier {
     }
   }
 
-Future<String?> getLoggedUserId() async {
+  Future<void> logOutUser(context) async {
 
-  String? userId = "";
-  if (_auth.currentUser != null){
-    userId =  _auth.currentUser?.uid;
+    _isSignedIn = false;
+    notifyListeners();
+    print("logado:${isSignedIn}" );
+
+    if (_auth.currentUser != null) {
+      await _auth.signOut();
+    }
+
+     await Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const FirstAcessPage(),
+            ));
   }
-  return userId;
-}
+
+  Future<String?> getLoggedUserId() async {
+    String? userId = "";
+    if (_auth.currentUser != null) {
+      userId = _auth.currentUser?.uid;
+    }
+    return userId;
+  }
 }

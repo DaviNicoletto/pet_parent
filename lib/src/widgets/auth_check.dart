@@ -17,6 +17,12 @@ class _AuthCheckState extends State<AuthCheck> {
   Widget build(BuildContext context) {
     DBAuth auth = Provider.of<DBAuth>(context);
 
+    if(auth.isSignedIn){
+      return HomePage();
+    } if (auth.isSignedIn) {
+      return FirstAcessPage();
+    }
+
     if (auth.isLoading) {
       return loading();
     } else if (auth.loggedUser == null) {
