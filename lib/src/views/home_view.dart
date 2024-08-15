@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_parent/src/views/pets_view.dart';
-import 'package:pet_parent/src/widgets/app_bar_widget.dart';
-import 'package:pet_parent/src/widgets/appointment_modal_widget.dart';
-import 'package:pet_parent/src/widgets/custom_navigation_bar.dart';
+import 'package:pet_parent/src/widgets/common/app_bar_widget.dart';
 import '../constants/app_constants.dart';
-import '../widgets/section_container.dart';
-import '../widgets/calendar_widget.dart';
 import 'agenda_view.dart';
 
 class HomePage extends StatefulWidget {

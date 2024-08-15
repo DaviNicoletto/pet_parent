@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:pet_parent/src/services/auth_service.dart';
-import 'package:pet_parent/src/widgets/dialog_message.dart';
-
+import 'package:pet_parent/src/widgets/common/dialog_message.dart';
 import '../models/pet_model.dart';
 import '../models/user_model.dart';
 
@@ -86,15 +84,48 @@ class CloudDatabase {
     }
   }
 
-  Future<void> listPets(BuildContext context, String? userId) async {
+  Future<List<Pet>> listPets(BuildContext context, String? userId) async {
 
-    final collRef = _firestoreDB.collection('users').doc(userId).collection("pets");
-    collRef.get().then((querySnapshot) {
-      print("PEGOU OS PETS");
-      for (var docSnapshot in querySnapshot.docs){
-        print(docSnapshot.id);
+    AppConstants constants = AppConstants();
+
+    final petsCollection =
+        _firestoreDB.collection('users').doc(userId).collection("pets");
+
+    List<Pet> userPets = [];
+    int petIndex = 0;
+
+    try {
+      await petsCollection.get().then((querySnapshot) {
+        for (var docSnapshot in querySnapshot.docs) {
+          List petData = docSnapshot.data().values.toList();
+          Pet pet = Pet(
+              name: petData[5],
+              gender: petData[3],
+              breed: petData[0],
+              color: petData[1],
+              age: petData[4],
+              specialNecessities: petData[2]);
+          // print(pet.toJson());
+          // print(petData);
+          userPets.insert(petIndex, pet);
+          petIndex++;
+        }
+        print("PEGOU OS PETS");
+        print('LISTA DOS PETS: ${userPets}');
+        return userPets;
+      });
+    } catch (e) {
+      if (context.mounted) {
+        showDialog(
+            context: context,
+            builder: (context) => DialogMessage(
+                  title: constants.error,
+                  message: _getErrorMessage(e.toString()),
+                  buttonRoute: '',
+                  buttonText: '',
+                ));
       }
-    }, onError: (e) => print("DEU ERRO AO PEGAR OS PETS: ${e}")
-    );
+    }
+    return userPets;
   }
 }
