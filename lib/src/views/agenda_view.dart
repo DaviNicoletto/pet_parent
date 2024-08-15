@@ -3,9 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 import 'package:pet_parent/src/views/home_view.dart';
 
-import '../widgets/appointment_modal_widget.dart';
-import '../widgets/calendar_widget.dart';
-import '../widgets/section_container.dart';
+import '../widgets/appointments_page/appointment_modal_widget.dart';
+import '../widgets/appointments_page/calendar_widget.dart';
+import '../widgets/common/section_container.dart';
 
 class AgendaPage extends StatefulWidget {
   const AgendaPage({
