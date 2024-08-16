@@ -21,22 +21,38 @@ Future<File?> selectPetImage() async {
   }
 }
 
-Future<String?> uploadPetImage() async {
-  String fileName = "petsImages/${DateTime.now().microsecondsSinceEpoch}.jpg";
+Future<void> uploadPetImage(String petName, Function onImageUploaded) async {
+  String fileName = "petsImages/${petName}.jpg";
   final petsImagesRef = storageRef.child(fileName);
 
   final imagePath = await selectPetImage();
 
   if (imagePath == null || !imagePath.existsSync()) {
+    return;
   } else {
     try {
       UploadTask uploadTask = petsImagesRef.putFile(imagePath);
       TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
       print(taskSnapshot.ref.getDownloadURL());
-      return await taskSnapshot.ref.getDownloadURL();
+      onImageUploaded();
     } on FirebaseException catch (e) {
       print(e);
     }
   }
-  return null;
+}
+
+Future<String> getPetsImages(String petName) async {
+  final imgRef = storageRef.child('petsImages/${petName}.jpg');
+  try {
+    return imgRef.getDownloadURL();
+  } on FirebaseException catch (e) {
+    if (e.code == 'firebase_storage/object-not-found') {
+      return "";
+    } else {
+      rethrow;
+    }
+  } catch (e) {
+    print(e);
+    return "ERRO: ${e}";
+  }
 }
