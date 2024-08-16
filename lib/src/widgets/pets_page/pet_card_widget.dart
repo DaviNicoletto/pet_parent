@@ -19,7 +19,7 @@ class PetCard extends StatefulWidget {
   @override
   State<PetCard> createState() => _PetCardState();
 }
-
+//TODO: ALTERAR O CARD PARA TROCAR O ICONE DE PATINHA PELA FOTO DO PET
 class _PetCardState extends State<PetCard> {
   bool _cardIsExpanded = false;
   AppConstants constants = AppConstants();
