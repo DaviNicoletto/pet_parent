@@ -17,6 +17,7 @@ class PetsPage extends StatefulWidget {
   @override
   State<PetsPage> createState() => _PetsPageState();
 }
+
 //TODO: ALTERAR OS FORMULARIOS PARA VALIDAR A ENTRADA CORRETAMENTE
 class _PetsPageState extends State<PetsPage> {
   @override
@@ -24,8 +25,9 @@ class _PetsPageState extends State<PetsPage> {
     return Scaffold(
       body: Column(
         children: [
-          Card(),
-          Expanded(child: PetsList()),
+          Expanded(
+            child: PetsList(),
+          ),
           Expanded(
             child: Stack(
               children: [
@@ -35,7 +37,6 @@ class _PetsPageState extends State<PetsPage> {
                     child: Container(
                       width: 70,
                       height: 70,
-                      //TODO: Antes de montar o modal do form para task, criar o sistema de adicionar pets.
                       child: ElevatedButton(
                         onPressed: () {
                           showDialog(
