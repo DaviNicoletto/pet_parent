@@ -25,7 +25,7 @@ class _PetsPageState extends State<PetsPage> {
     return Scaffold(
       body: Column(
         children: [
-          Expanded(
+          const Expanded(
             child: PetsList(),
           ),
           Expanded(
@@ -34,30 +34,44 @@ class _PetsPageState extends State<PetsPage> {
                 Positioned(
                     bottom: 10,
                     right: 10,
-                    child: Container(
-                      width: 70,
-                      height: 70,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) => PetModal());
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(
-                              widget.colors.colorHighlight),
-                        ),
-                        child: const Text("+",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 50,
-                                fontWeight: FontWeight.w300)),
-                      ),
-                    ))
+                    child: AddNewPetButton(widget: widget))
               ],
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class AddNewPetButton extends StatelessWidget {
+  const AddNewPetButton({
+    super.key,
+    required this.widget,
+  });
+
+  final PetsPage widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 70,
+      height: 70,
+      child: ElevatedButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) => PetModal());
+        },
+        style: ButtonStyle(
+          backgroundColor: MaterialStatePropertyAll<Color>(
+              widget.colors.colorHighlight),
+        ),
+        child: const Text("+",
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 50,
+                fontWeight: FontWeight.w300)),
       ),
     );
   }

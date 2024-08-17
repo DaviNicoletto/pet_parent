@@ -19,7 +19,7 @@ String _getErrorMessage(String code) {
   }
 }
 
-class CloudDatabase {
+class CloudDatabase extends ChangeNotifier {
   final FirebaseFirestore _firestoreDB = FirebaseFirestore.instance;
 
   Future<void> createUser(name, email, password, context, userId) async {
@@ -68,7 +68,6 @@ class CloudDatabase {
           .collection("pets")
           .doc(pet.name)
           .set(petData);
-
       Navigator.of(context).pop();
     } catch (e) {
       if (context.mounted) {
@@ -84,48 +83,28 @@ class CloudDatabase {
     }
   }
 
-  Future<List<Pet>> listPets(BuildContext context, String? userId) async {
-
-    AppConstants constants = AppConstants();
-
+  Stream<List<Pet>> streamPets(BuildContext context, String? userId) {
     final petsCollection =
         _firestoreDB.collection('users').doc(userId).collection("pets");
 
-    List<Pet> userPets = [];
-    int petIndex = 0;
-
-    try {
-      await petsCollection.get().then((querySnapshot) {
-        for (var docSnapshot in querySnapshot.docs) {
-          List petData = docSnapshot.data().values.toList();
-          Pet pet = Pet(
-              name: petData[5],
-              gender: petData[3],
-              breed: petData[0],
-              color: petData[1],
-              age: petData[4],
-              specialNecessities: petData[2]);
-          // print(pet.toJson());
-          // print(petData);
-          userPets.insert(petIndex, pet);
-          petIndex++;
-        }
-        print("PEGOU OS PETS");
-        print('LISTA DOS PETS: ${userPets}');
-        return userPets;
-      });
-    } catch (e) {
-      if (context.mounted) {
-        showDialog(
-            context: context,
-            builder: (context) => DialogMessage(
-                  title: constants.error,
-                  message: _getErrorMessage(e.toString()),
-                  buttonRoute: '',
-                  buttonText: '',
-                ));
+    return petsCollection.snapshots().map((querySnapshot) {
+      List<Pet> userPets = [];
+      for (var docSnapshot in querySnapshot.docs) {
+        List petData = docSnapshot.data().values.toList();
+        Pet pet = Pet(
+            name: petData[5],
+            gender: petData[3],
+            breed: petData[0],
+            color: petData[1],
+            age: petData[4],
+            specialNecessities: petData[2]);
+        // print(pet.toJson());
+        // print(petData);
+        userPets.add(pet);
       }
-    }
-    return userPets;
+      print("PEGOU OS PETS");
+      print('LISTA DOS PETS: ${userPets}');
+      return userPets;
+    });
   }
 }

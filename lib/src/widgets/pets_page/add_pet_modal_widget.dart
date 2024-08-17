@@ -5,6 +5,7 @@ import 'package:pet_parent/src/constants/app_constants.dart';
 import 'package:pet_parent/src/services/auth_service.dart';
 import 'package:pet_parent/src/widgets/common/field_form.dart';
 
+import '../../models/pet_model.dart';
 import '../../services/firestore_db.dart';
 
 class PetModal extends StatefulWidget {
@@ -14,15 +15,21 @@ class PetModal extends StatefulWidget {
   State<PetModal> createState() => _PetModalState();
 }
 
+final AppConstants constans = AppConstants();
+final List<String> genderOptions = [
+  constans.male,
+  constans.female,
+  constans.unknown
+];
+
 class _PetModalState extends State<PetModal> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _nameControllerPet = TextEditingController();
   final TextEditingController _ageControllerPet = TextEditingController();
   final TextEditingController _breedControllerPet = TextEditingController();
-  final TextEditingController _typeControllerPet = TextEditingController();
   final TextEditingController _colorControllerPet = TextEditingController();
-  final TextEditingController _genderControllerPet = TextEditingController();
+  TextEditingController _genderControllerPet = TextEditingController();
   final TextEditingController _SNControllerPet = TextEditingController();
 
   AppColors colors = AppColors();
@@ -31,6 +38,13 @@ class _PetModalState extends State<PetModal> {
 
   CloudDatabase db = CloudDatabase();
   DBAuth auth = DBAuth();
+  String genderDropdownValue = '';
+
+  
+  List<Pet> petsList = [];
+  bool isLoading = true;
+
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -51,6 +65,7 @@ class _PetModalState extends State<PetModal> {
                     _SNControllerPet.text,
                     _breedControllerPet.text,
                     uId);
+                db.streamPets(context, uId);
               }
             },
             child: Text(
@@ -76,35 +91,58 @@ class _PetModalState extends State<PetModal> {
               child: Column(
                 children: [
                   FieldForm(
-                      label: formConstants.nameField,
-                      controller: _nameControllerPet,
-                      isPassword: false,
-                      isEmail: false),
+                    label: formConstants.nameField,
+                    controller: _nameControllerPet,
+                    isPassword: false,
+                    isEmail: false,
+                    isRequired: true,
+                  ),
                   FieldForm(
-                      label: formConstants.ageField,
-                      controller: _ageControllerPet,
-                      isPassword: false,
-                      isEmail: false),
+                    label: formConstants.ageField,
+                    controller: _ageControllerPet,
+                    isPassword: false,
+                    isEmail: false,
+                    isRequired: true,
+                  ),
                   FieldForm(
-                      label: formConstants.breedField,
-                      controller: _breedControllerPet,
-                      isPassword: false,
-                      isEmail: false),
+                    label: formConstants.breedField,
+                    controller: _breedControllerPet,
+                    isPassword: false,
+                    isEmail: false,
+                    isRequired: true,
+                  ),
+                  DropdownButton<String>(
+                      underline: Container(height: 0,),
+                      hint: Text(constants.gender),
+                      value: genderDropdownValue.isEmpty ? null : genderDropdownValue,
+                      isExpanded: true,
+                      items: genderOptions
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String? value) {
+                        setState(() {
+                          genderDropdownValue = value!;
+                          _genderControllerPet.text = genderDropdownValue;
+                        });
+                      }),
                   FieldForm(
-                      label: formConstants.genderField,
-                      controller: _genderControllerPet,
-                      isPassword: false,
-                      isEmail: false),
+                    label: formConstants.colorField,
+                    controller: _colorControllerPet,
+                    isPassword: false,
+                    isEmail: false,
+                    isRequired: false,
+                  ),
                   FieldForm(
-                      label: formConstants.colorField,
-                      controller: _colorControllerPet,
-                      isPassword: false,
-                      isEmail: false),
-                  FieldForm(
-                      label: formConstants.SNField,
-                      controller: _SNControllerPet,
-                      isPassword: false,
-                      isEmail: false),
+                    label: formConstants.SNField,
+                    controller: _SNControllerPet,
+                    isPassword: false,
+                    isEmail: false,
+                    isRequired: false,
+                  ),
                 ],
               ),
             )),
