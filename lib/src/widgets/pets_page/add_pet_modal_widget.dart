@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:path/path.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 import 'package:pet_parent/src/services/auth_service.dart';
 import 'package:pet_parent/src/widgets/common/field_form.dart';
@@ -40,10 +42,8 @@ class _PetModalState extends State<PetModal> {
   DBAuth auth = DBAuth();
   String genderDropdownValue = '';
 
-  
   List<Pet> petsList = [];
   bool isLoading = true;
-
 
   @override
   Widget build(BuildContext context) {
@@ -111,24 +111,45 @@ class _PetModalState extends State<PetModal> {
                     isEmail: false,
                     isRequired: true,
                   ),
-                  DropdownButton<String>(
-                      underline: Container(height: 0,),
-                      hint: Text(constants.gender),
-                      value: genderDropdownValue.isEmpty ? null : genderDropdownValue,
-                      isExpanded: true,
-                      items: genderOptions
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (String? value) {
-                        setState(() {
-                          genderDropdownValue = value!;
-                          _genderControllerPet.text = genderDropdownValue;
-                        });
-                      }),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 3, vertical: 3),
+                    decoration: BoxDecoration(
+                        border: Border.all(),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: DropdownButton<String>(
+                        underline: Container(
+                          height: 0,
+                        ),
+                        hint: Text(constants.selectGender),
+                        iconSize: 30,
+                        icon: Icon(Icons.keyboard_arrow_down_rounded),
+                        // iconEnabledColor: colors.colorPrimary,
+                        focusColor: colors.colorPrimary,
+                        style: GoogleFonts.inika(
+                            textStyle: TextStyle(
+                          fontSize: constants.textFontSize,
+                          color: colors.colorTextDark,
+                        )),
+                        value: genderDropdownValue.isEmpty
+                            ? null
+                            : genderDropdownValue,
+                        isExpanded: true,
+                        items: genderOptions
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? value) {
+                          setState(() {
+                            genderDropdownValue = value!;
+                            _genderControllerPet.text = genderDropdownValue;
+                          });
+                        }),
+                  ),
                   FieldForm(
                     label: formConstants.colorField,
                     controller: _colorControllerPet,

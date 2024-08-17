@@ -56,7 +56,7 @@ class AppConstants {
   String get mySchedule => 'Minha agenda';
 
   //Pets Gender Options
-  String get gender => "Sexo";
+  String get selectGender => "Sexo (Selecione)";
   String get male => "Macho";  
   String get female => "Fêmea";  
   String get unknown => "Desconhecido";  

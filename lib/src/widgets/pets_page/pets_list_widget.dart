@@ -5,7 +5,6 @@ import 'package:pet_parent/src/services/auth_service.dart';
 import 'package:pet_parent/src/services/firestore_db.dart';
 import 'package:pet_parent/src/views/pets_view.dart';
 import 'package:pet_parent/src/widgets/pets_page/pet_card_widget.dart';
-import 'package:provider/provider.dart';
 
 class PetsList extends StatefulWidget {
   const PetsList({super.key});
@@ -27,7 +26,6 @@ class _PetsListState extends State<PetsList> {
 
   @override
   void initState() {
-    super.initState();
     _getUId().then((uId) {
       if (uId != null) {
         setState(() {
@@ -35,6 +33,7 @@ class _PetsListState extends State<PetsList> {
         });
       }
     });
+    super.initState();
   }
 
   @override
@@ -47,12 +46,12 @@ class _PetsListState extends State<PetsList> {
         stream: _petsStream,
         builder: ((context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return const Center(child:  CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('ERRO: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
                   Text(
@@ -65,7 +64,7 @@ class _PetsListState extends State<PetsList> {
                     style: TextStyle(fontSize: constants.textFontSize),
                     textAlign: TextAlign.center,
                   ),
-                  Container(padding: EdgeInsets.all(20),child: AddNewPetButton(widget: widget))
+                  Container(padding: const EdgeInsets.all(20),child: AddNewPetButton(widget: widget))
                 ],
               ),
             );

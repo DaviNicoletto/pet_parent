@@ -30,7 +30,7 @@ class _FieldFormState extends State<FieldForm> {
     AppColors colors = AppColors();
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 3),
       child: TextFormField(
         obscureText: isHidden,
         controller: widget.controller,

@@ -34,8 +34,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: customAppBar(),
-
+      appBar: customAppBar(indexTitle: _selectedIndex),
+  
       body: Center(child: _widgetOptions.elementAt(_selectedIndex),),
       
       bottomNavigationBar: BottomNavigationBar(
