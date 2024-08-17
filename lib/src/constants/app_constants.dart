@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class AppColors{
@@ -53,7 +54,12 @@ class AppConstants {
 
   //Home Page
   String get mySchedule => 'Minha agenda';
-  
+
+  //Pets Gender Options
+  String get gender => "Sexo";
+  String get male => "Macho";  
+  String get female => "Fêmea";  
+  String get unknown => "Desconhecido";  
 
 }
 
