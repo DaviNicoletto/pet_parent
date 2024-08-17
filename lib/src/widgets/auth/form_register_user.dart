@@ -57,18 +57,21 @@ class _RegisterFormState extends State<RegisterForm> {
               controller: controllerName,
               isPassword: false,
               isEmail: false,
+              isRequired: true,
             ),
             FieldForm(
               label: 'E-mail',
               controller: controllerEmail,
               isPassword: false,
               isEmail: true,
+              isRequired: true,
             ),
             FieldForm(
               label: fieldName.passwordField,
               controller: controllerPassword,
               isPassword: isPassword,
               isEmail: false,
+              isRequired: true,
             ),
             ElevatedButton(
               onPressed: save,

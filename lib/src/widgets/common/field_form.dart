@@ -8,11 +8,13 @@ class FieldForm extends StatefulWidget {
       required this.label,
       required this.controller,
       required this.isPassword,
-      required this.isEmail});
+      required this.isEmail,
+      required this.isRequired});
 
   final String label;
   final bool isPassword;
   final bool isEmail;
+  final bool isRequired;
   final TextEditingController controller;
 
   @override
@@ -21,6 +23,7 @@ class FieldForm extends StatefulWidget {
 
 class _FieldFormState extends State<FieldForm> {
   late bool isHidden = widget.isPassword;
+  FormConstants constants = FormConstants();
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +53,21 @@ class _FieldFormState extends State<FieldForm> {
           ),
         ),
         validator: (value) {
-          if (value!.length < 5) {
-            return ('Mínimo de 5 caracteres!');
-          }
-          if (widget.isEmail == true && !value.contains("@")) {
-            return ('E-mail inválido!');
+          if (value != null) {
+            if (widget.isRequired && value.isEmpty) {
+              return ("Campo obrigatório.");
+            }
+            if(widget.label == constants.ageField && int.tryParse(value) == null){
+              return ("Idade inválida.");
+            }
+            if (widget.isPassword == true) {
+              if (value.length < 5) {
+                return ('Mínimo de 5 caracteres!');
+              }
+            }
+            if (widget.isEmail == true && !value.contains("@")) {
+              return ('E-mail inválido!');
+            }
           }
           return null;
         },

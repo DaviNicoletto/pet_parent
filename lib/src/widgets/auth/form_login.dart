@@ -51,12 +51,14 @@ class _LoginFormState extends State<LoginForm> {
               controller: controllerEmail,
               isPassword: false,
               isEmail: true,
+              isRequired: true,
             ),
             FieldForm(
               label: fieldName.passwordField,
               controller: controllerPassword,
               isPassword: true,
               isEmail: false,
+              isRequired: true,
             ),
             ElevatedButton(
               onPressed: login,
