@@ -61,6 +61,8 @@ class AppConstants {
   String get female => "Fêmea";  
   String get unknown => "Desconhecido";  
 
+  String get selectPet => "Selecionar Pet";
+
 }
 
 class FormConstants {
@@ -72,4 +74,6 @@ class FormConstants {
   String get colorField => 'Cor';
   String get passwordField => 'Senha';
   String get submmitForm => 'Enviar';
+
+  String get addTitle => 'Adicionar título';
 }
