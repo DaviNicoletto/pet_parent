@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 import 'package:pet_parent/src/user_provider.dart';
 import 'package:pet_parent/src/views/onboarding_view.dart';
@@ -7,6 +8,7 @@ import 'package:pet_parent/src/views/login_view.dart';
 import 'package:pet_parent/src/views/pets_view.dart';
 import 'package:pet_parent/src/views/register_account_view.dart';
 import 'package:pet_parent/src/widgets/auth/auth_check.dart';
+import 'package:pet_parent/src/widgets/pets_page/add_pet_modal_widget.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -63,6 +65,16 @@ class MyApp extends StatelessWidget {
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
             selectedItemColor: colors.colorHighlight,
           ),
+          datePickerTheme: const DatePickerThemeData(
+            backgroundColor: Colors.white,
+            surfaceTintColor: Colors.transparent,
+            headerBackgroundColor: Colors.white,
+            dividerColor: Colors.transparent,
+          ),
+          timePickerTheme: TimePickerThemeData(
+            dialBackgroundColor: colors.colorSecondary,
+            dialTextStyle: TextStyle(fontSize: constans.textFontSize),
+          ),
         ),
         initialRoute: '/authCheck',
         routes: {
@@ -72,6 +84,15 @@ class MyApp extends StatelessWidget {
           '/home': (context) => const HomePage(),
           '/authCheck': (context) => const AuthCheck(),
         },
+        supportedLocales: const [
+          Locale('en', ''),
+          Locale('pt', 'BR'), // English, no country code
+        ],
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
       ),
     );
   }
