@@ -24,34 +24,33 @@ class _DialogMessageState extends State<DialogMessage> {
   Widget build(BuildContext context) {
     String buttonText = widget.buttonText;
 
-    AppColors colors = AppColors();
     AppConstants constants = AppConstants();
     if (widget.title == constants.error) {
       buttonText = '';
     }
     return AlertDialog(
       actions: [
-        TextButton(
-          onPressed: () {
-            if (widget.title == constants.error) {
-              Navigator.of(context).pop();
-            }
-            Navigator.of(context).pushReplacementNamed(widget.buttonRoute);
-          },
-          child: Text(
-            buttonText,
-            style: TextStyle(color: colors.colorPrimary),
-          ),
-        ),
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text(
-            constants.goBack,
-            style: TextStyle(color: colors.colorPrimary),
-          ),
-        ),
+        widget.title == constants.error
+            ? TextButton(
+                onPressed: () => Navigator.of(context).pop,
+                child: Text(constants.goBack))
+            : buttonText == ''
+                ? TextButton(onPressed: () {}, child: const Text(""))
+                : Row(
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop;
+                          },
+                          child: Text(constants.goBack)),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushReplacementNamed(widget.buttonRoute);
+                          },
+                          child: Text(buttonText)),
+                    ],
+                  ),
       ],
       title: Text(widget.title),
       contentPadding: const EdgeInsets.all(15.0),
