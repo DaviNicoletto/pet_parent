@@ -1,9 +1,9 @@
 class Appointment{
-  final String title;
-  final String description;
-  final String pet;
-  final DateTime date;
 
-  Appointment(this.title, this.description, this.pet, this.date);
+    final DateTime startTime;
+    final DateTime endTime;
+    final String subject;
+
+  Appointment({required this.startTime, required this.endTime, required this.subject});
 
 }
