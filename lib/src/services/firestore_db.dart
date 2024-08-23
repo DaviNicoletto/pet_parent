@@ -97,13 +97,56 @@ class CloudDatabase extends ChangeNotifier {
             breed: petData[0],
             color: petData[1],
             age: petData[4],
+            specialNecessities: petData[2],
+            schedule: []);
+        // print(pet.toJson());
+        // print(petData);
+        userPets.add(pet);
+      }
+      print("PEGOU OS PETS");
+      print('LISTA DOS PETS: $userPets');
+      return userPets;
+    });
+  }
+
+  Future<List<Pet>> getUserPets(String? userId) async {
+    final petsCollection =
+        _firestoreDB.collection('users').doc(userId).collection("pets");
+
+    try {
+      QuerySnapshot querySnapshot = await petsCollection.get();
+      List<Pet> documents = querySnapshot.docs.map((doc) {
+        return Pet.fromMap(doc.data() as Map<String, dynamic>);
+      }).toList();
+      print("pegou os pets: $documents");
+      return documents;
+    } catch (e) {
+      print("Erro no metodo getUserPets: $e");
+      return [];
+    }
+  }
+
+  Stream<List<Pet>> streamTasks(BuildContext context, String? userId) {
+    final petsCollection =
+        _firestoreDB.collection('users').doc(userId).collection("pets");
+
+    return petsCollection.snapshots().map((querySnapshot) {
+      List<Pet> userPets = [];
+      for (var docSnapshot in querySnapshot.docs) {
+        List petData = docSnapshot.data().values.toList();
+        Pet pet = Pet(
+            name: petData[5],
+            gender: petData[3],
+            breed: petData[0],
+            color: petData[1],
+            age: petData[4],
             specialNecessities: petData[2]);
         // print(pet.toJson());
         // print(petData);
         userPets.add(pet);
       }
       print("PEGOU OS PETS");
-      print('LISTA DOS PETS: ${userPets}');
+      print('LISTA DOS PETS: $userPets');
       return userPets;
     });
   }

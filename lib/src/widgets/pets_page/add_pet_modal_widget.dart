@@ -52,33 +52,35 @@ class _PetModalState extends State<PetModal> {
       child: AlertDialog(
         actions: [
           TextButton(
-            onPressed: () async {
-              if (_formKey.currentState!.validate()) {
-                int age = int.parse(_ageControllerPet.text);
-                String? uId = await auth.getLoggedUserId();
-                db.addNewPet(
-                    context,
-                    _nameControllerPet.text,
-                    _genderControllerPet.text,
-                    age,
-                    _colorControllerPet.text,
-                    _SNControllerPet.text,
-                    _breedControllerPet.text,
-                    uId);
-                db.streamPets(context, uId);
-              }
-            },
-            child: Text(
-              constants.add,
-              style: TextStyle(color: colors.colorPrimary),
-            ),
-          ),
-          TextButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
             child: Text(
               constants.goBack,
+              style: TextStyle(color: colors.colorError),
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              if (_formKey.currentState!.validate()) {
+                int age = int.parse(_ageControllerPet.text);
+                String? uId = await auth.getLoggedUserId();
+                if (context.mounted) {
+                  db.addNewPet(
+                      context,
+                      _nameControllerPet.text,
+                      _genderControllerPet.text,
+                      age,
+                      _colorControllerPet.text,
+                      _SNControllerPet.text,
+                      _breedControllerPet.text,
+                      uId);
+                  db.streamPets(context, uId);
+                }
+              }
+            },
+            child: Text(
+              constants.add,
               style: TextStyle(color: colors.colorPrimary),
             ),
           ),
@@ -124,7 +126,7 @@ class _PetModalState extends State<PetModal> {
                         ),
                         hint: Text(constants.selectGender),
                         iconSize: 30,
-                        icon: Icon(Icons.keyboard_arrow_down_rounded),
+                        icon: const Icon(Icons.keyboard_arrow_down_rounded),
                         // iconEnabledColor: colors.colorPrimary,
                         focusColor: colors.colorPrimary,
                         style: GoogleFonts.inika(
