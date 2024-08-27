@@ -1,9 +1,11 @@
-class Appointment {
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class AppointmentModel {
   final DateTime startTime;
   final DateTime? endTime;
   final String subject;
 
-  Appointment(
+  AppointmentModel(
       {required this.startTime, this.endTime, required this.subject});
 
   toJson() {
@@ -12,5 +14,11 @@ class Appointment {
       "EndTime": endTime,
       "Subject": subject,
     };
+  }
+
+  factory AppointmentModel.fromMap(Map<String, dynamic> map) {
+    return AppointmentModel(
+        startTime: (map["StartTime"] as Timestamp).toDate(),
+        subject: (map["Subject"] as String));
   }
 }
