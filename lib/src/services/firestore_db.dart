@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_parent/src/models/appointment_model.dart';
+import 'package:pet_parent/src/widgets/common/app_bar_widget.dart';
 import 'package:pet_parent/src/widgets/common/dialog_message.dart';
 import '../models/pet_model.dart';
 import '../models/user_model.dart';
@@ -43,8 +46,39 @@ class CloudDatabase extends ChangeNotifier {
     }
   }
 
-  Future<void> addNewAppointment(context) async {
-    Navigator.of(context).pop();
+  Future<void> addNewAppointment(context, String? userId, String subject,
+      String petName, String startTime) async {
+    DateTime parsedDate = DateFormat("dd/MM/yyyy HH:mm").parse(startTime);
+    print("DATA TASK: ${parsedDate}");
+    AppConstants constants = AppConstants();
+
+    AppointmentModel appointment = AppointmentModel(
+        startTime: parsedDate, endTime: null, subject: subject);
+    Map<String, dynamic> appointmentData = appointment.toJson();
+
+    try {
+      _firestoreDB
+          .collection("users")
+          .doc(userId)
+          .collection("pets")
+          .doc(petName)
+          .collection("appointments")
+          .doc("$subject - $petName")
+          .set(appointmentData);
+
+      Navigator.of(context).pop();
+    } catch (e) {
+      if (context.mounted) {
+        showDialog(
+            context: context,
+            builder: (context) => DialogMessage(
+                  title: constants.error,
+                  message: _getErrorMessage(e.toString()),
+                  buttonRoute: '',
+                  buttonText: '',
+                ));
+      }
+    }
   }
 
   Future<void> addNewPet(
@@ -126,28 +160,51 @@ class CloudDatabase extends ChangeNotifier {
     }
   }
 
-  Stream<List<Pet>> streamTasks(BuildContext context, String? userId) {
-    final petsCollection =
-        _firestoreDB.collection('users').doc(userId).collection("pets");
+  Stream<List<AppointmentModel>> streamTasks(
+      BuildContext context, String? userId, String petName) {
+    final appointmentsCollection = _firestoreDB
+        .collection('users')
+        .doc(userId)
+        .collection("pets")
+        .doc(petName)
+        .collection("Appointments");
 
-    return petsCollection.snapshots().map((querySnapshot) {
-      List<Pet> userPets = [];
+    return appointmentsCollection.snapshots().map((querySnapshot) {
+      List<AppointmentModel> petAppointments = [];
       for (var docSnapshot in querySnapshot.docs) {
-        List petData = docSnapshot.data().values.toList();
-        Pet pet = Pet(
-            name: petData[5],
-            gender: petData[3],
-            breed: petData[0],
-            color: petData[1],
-            age: petData[4],
-            specialNecessities: petData[2]);
+        List taskData = docSnapshot.data().values.toList();
+        AppointmentModel appointment =
+            AppointmentModel(startTime: taskData[1], subject: taskData[2]);
         // print(pet.toJson());
-        // print(petData);
-        userPets.add(pet);
+        // print(taskData);
+        petAppointments.add(appointment);
       }
       print("PEGOU OS PETS");
-      print('LISTA DOS PETS: $userPets');
-      return userPets;
+      print('LISTA DOS PETS: $petAppointments');
+      return petAppointments;
     });
   }
+
+  Future<List<AppointmentModel>> getPetAppointments(
+      String? userId, String? petName) async {
+    final petAppointmentCollection = _firestoreDB
+        .collection('users')
+        .doc(userId)
+        .collection("pets")
+        .doc(petName)
+        .collection("appointments");
+
+    try {
+      QuerySnapshot querySnapshot = await petAppointmentCollection.get();
+      List<AppointmentModel> documents = querySnapshot.docs.map((doc) {
+        return AppointmentModel.fromMap(doc.data() as Map<String, dynamic>);
+      }).toList();
+      print("pegou as tasks do $petName : $documents");
+      return documents;
+    } catch (e) {
+      print("Erro no metodo getPetApppointment: $e");
+      return [];
+    }
+  }
+  
 }

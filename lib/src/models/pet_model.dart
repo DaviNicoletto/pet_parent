@@ -7,7 +7,7 @@ class Pet {
   final String color;
   final int age;
   final String? specialNecessities;
-  final List<Appointment>? schedule;
+  final List<AppointmentModel>? schedule;
 
   Pet(
       {required this.name,

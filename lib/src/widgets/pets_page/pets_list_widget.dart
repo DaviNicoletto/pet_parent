@@ -17,7 +17,7 @@ class _PetsListState extends State<PetsList> {
   DBAuth auth = DBAuth();
   CloudDatabase db = CloudDatabase();
 
-  late Stream<List<Pet>> _petsStream;
+  late Stream<List<Pet>> _petsStream = Stream.empty();
 
   Future<String?> _getUId() async {
     String? uId = await auth.getLoggedUserId();

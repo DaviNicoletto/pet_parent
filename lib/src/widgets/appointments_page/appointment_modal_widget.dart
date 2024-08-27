@@ -17,6 +17,8 @@ class AppointmentModal extends StatefulWidget {
 }
 
 class AppointmentModalState extends State<AppointmentModal> {
+  final _formKey = GlobalKey<FormState>();
+
   List<Pet?> petsList = [];
   CloudDatabase db = CloudDatabase();
   DBAuth auth = DBAuth();
@@ -38,11 +40,9 @@ class AppointmentModalState extends State<AppointmentModal> {
     super.initState();
   }
 
-  
-    final TextEditingController taskTitleController = TextEditingController();
-    final TextEditingController petTaskCotroller = TextEditingController();
-    final TextEditingController _taskDateTimeController =
-        TextEditingController();
+  final TextEditingController _taskTitleController = TextEditingController();
+  final TextEditingController _petTaskCotroller = TextEditingController();
+  final TextEditingController _taskDateTimeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,6 @@ class AppointmentModalState extends State<AppointmentModal> {
       petsNames.add(petName);
     }
 
-
     Future<void> _selectDateTime(BuildContext context) async {
       final DateFormat _dateFormat = DateFormat("dd/MM/yyyy HH:mm");
 
@@ -65,7 +64,8 @@ class AppointmentModalState extends State<AppointmentModal> {
           context: context,
           firstDate: DateTime(2000),
           lastDate: DateTime(2100),
-          initialDate: DateTime.now(), locale: const Locale('pt', 'BR'));
+          initialDate: DateTime.now(),
+          locale: const Locale('pt', 'BR'));
 
       if (selectedDate != null) {
         TimeOfDay? selectedTime = await showTimePicker(
@@ -88,104 +88,121 @@ class AppointmentModalState extends State<AppointmentModal> {
       }
     }
 
-    return AlertDialog(
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text(
-            constants.goBack,
-            style: TextStyle(color: colors.colorError),
-          ),
-        ),
-        TextButton(
-          onPressed: () async {},
-          child: Text(
-            constants.add,
-            style: TextStyle(color: colors.colorPrimary),
-          ),
-        ),
-      ],
-      title: Text(constants.add),
-      contentPadding: const EdgeInsets.all(15.0),
-      content: SizedBox(
-          width: MediaQuery.of(context).size.width * 1,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                FieldForm(
-                  label: formConstants.addTitle,
-                  controller: taskTitleController,
-                  isPassword: false,
-                  isEmail: false,
-                  isRequired: true,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 3),
-                        child: TextFormField(
-                            controller: _taskDateTimeController,
-                            decoration: InputDecoration(
-                              labelText: 'Data e Hora',
-                              labelStyle: GoogleFonts.inika(
-                                  textStyle: TextStyle(
-                                fontSize: constants.textFontSize,
-                                color: colors.colorTextDark,
-                              )),
-                              hintText: "Selecione a data",
-                              suffixIcon: Icon(Icons.calendar_today),
-                            ),
-                            readOnly: true,
-                            onTap: () => _selectDateTime(context)),
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 3, vertical: 3),
-                  decoration: BoxDecoration(
-                      border: Border.all(),
-                      borderRadius: BorderRadius.circular(5)),
-                  child: DropdownButton<String>(
-                      underline: Container(
-                        height: 0,
-                      ),
-                      hint: Text(constants.selectPet),
-                      iconSize: 30,
-                      icon: const Icon(Icons.keyboard_arrow_down_rounded),
-                      // iconEnabledColor: colors.colorPrimary,
-                      focusColor: colors.colorPrimary,
-                      style: GoogleFonts.inika(
-                          textStyle: TextStyle(
-                        fontSize: constants.textFontSize,
-                        color: colors.colorTextDark,
-                      )),
-                      value: petDropdownValue.isEmpty ? null : petDropdownValue,
-                      isExpanded: true,
-                      items: petsNames
-                          .map<DropdownMenuItem<String>>((dynamic value) {
-                        return DropdownMenuItem(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (String? value) {
-                        setState(() {
-                          petDropdownValue = value!;
-                          petTaskCotroller.text = petDropdownValue;
-                        });
-                      }),
-                ),
-              ],
+    return Form(
+      key: _formKey,
+      child: AlertDialog(
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              constants.goBack,
+              style: TextStyle(color: colors.colorError),
             ),
-          )),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(4)),
+          ),
+          TextButton(
+            onPressed: () async {
+              if (_formKey.currentState!.validate()) {
+                String? uId = await auth.getLoggedUserId();
+
+                if (context.mounted) {
+                  db.addNewAppointment(context,
+                  uId,
+                  _taskTitleController.text,
+                  _petTaskCotroller.text,
+                  _taskDateTimeController.text);
+                  db.streamTasks(context, uId, _petTaskCotroller.text);
+                }
+              }
+            },
+            child: Text(
+              constants.add,
+              style: TextStyle(color: colors.colorPrimary),
+            ),
+          ),
+        ],
+        title: Text(constants.add),
+        contentPadding: const EdgeInsets.all(15.0),
+        content: SizedBox(
+            width: MediaQuery.of(context).size.width * 1,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  FieldForm(
+                    label: formConstants.addTitle,
+                    controller: _taskTitleController,
+                    isPassword: false,
+                    isEmail: false,
+                    isRequired: true,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 3),
+                          child: TextFormField(
+                              controller: _taskDateTimeController,
+                              decoration: InputDecoration(
+                                labelText: 'Data e Hora',
+                                labelStyle: GoogleFonts.inika(
+                                    textStyle: TextStyle(
+                                  fontSize: constants.textFontSize,
+                                  color: colors.colorTextDark,
+                                )),
+                                hintText: "Selecione a data",
+                                suffixIcon: Icon(Icons.calendar_today),
+                              ),
+                              readOnly: true,
+                              onTap: () => _selectDateTime(context)),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 3, vertical: 3),
+                    decoration: BoxDecoration(
+                        border: Border.all(),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: DropdownButton<String>(
+                        underline: Container(
+                          height: 0,
+                        ),
+                        hint: Text(constants.selectPet),
+                        iconSize: 30,
+                        icon: const Icon(Icons.keyboard_arrow_down_rounded),
+                        // iconEnabledColor: colors.colorPrimary,
+                        focusColor: colors.colorPrimary,
+                        style: GoogleFonts.inika(
+                            textStyle: TextStyle(
+                          fontSize: constants.textFontSize,
+                          color: colors.colorTextDark,
+                        )),
+                        value:
+                            petDropdownValue.isEmpty ? null : petDropdownValue,
+                        isExpanded: true,
+                        items: petsNames
+                            .map<DropdownMenuItem<String>>((dynamic value) {
+                          return DropdownMenuItem(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? value) {
+                          setState(() {
+                            petDropdownValue = value!;
+                            _petTaskCotroller.text = petDropdownValue;
+                          });
+                        }),
+                  ),
+                ],
+              ),
+            )),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(4)),
+        ),
       ),
     );
   }
