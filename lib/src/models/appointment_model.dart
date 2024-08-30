@@ -19,6 +19,11 @@ class AppointmentModel {
   factory AppointmentModel.fromMap(Map<String, dynamic> map) {
     return AppointmentModel(
         startTime: (map["StartTime"] as Timestamp).toDate(),
-        subject: (map["Subject"] as String));
+        endTime: map["EndTime"] != null
+            ? (map["EndTime"] as Timestamp).toDate()
+            : (map["StartTime"] as Timestamp)
+                .toDate()
+                .add(const Duration(hours: 1, minutes: 30)),
+        subject: (map["Subject"] ?? "Sem assunto"));
   }
 }

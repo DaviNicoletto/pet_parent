@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:path/path.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_parent/src/models/appointment_model.dart';
@@ -174,7 +175,7 @@ class CloudDatabase extends ChangeNotifier {
       for (var docSnapshot in querySnapshot.docs) {
         List taskData = docSnapshot.data().values.toList();
         AppointmentModel appointment =
-            AppointmentModel(startTime: taskData[1], subject: taskData[2]);
+            AppointmentModel(startTime: taskData[1], subject: taskData[2], endTime: taskData[0]);
         // print(pet.toJson());
         // print(taskData);
         petAppointments.add(appointment);
@@ -202,9 +203,33 @@ class CloudDatabase extends ChangeNotifier {
       print("pegou as tasks do $petName : $documents");
       return documents;
     } catch (e) {
-      print("Erro no metodo getPetApppointment: $e");
+      print("Erro no metodo getPetAppointments: $e");
       return [];
     }
   }
-  
+
+  Future<List<AppointmentModel>> getAllPetsAppointments(String? userId) async {
+    List<AppointmentModel> allAppointments = [];
+
+    if (userId != null) {
+      List<Pet> userPets = await getUserPets(userId);
+
+
+      for (int i = 0; i < userPets.length; i++) {
+        print("---------------------------------------");
+        String currentPetName = userPets[i].name;
+        List<AppointmentModel> singlePetAppointments =
+            await getPetAppointments(userId, currentPetName);
+        for (int i = 0; i < singlePetAppointments.length; i++) {
+          allAppointments.add(singlePetAppointments[i]);
+          print("adicionou uma task do pet ${currentPetName}");
+        }
+      }
+
+      print("GetAllTasks: ${allAppointments}");
+      return allAppointments;
+    } else {
+      return [];
+    }
+  }
 }
