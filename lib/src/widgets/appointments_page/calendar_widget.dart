@@ -3,6 +3,8 @@ import 'package:pet_parent/src/constants/app_constants.dart';
 import 'package:pet_parent/src/models/appointment_data_source_model.dart';
 import 'package:pet_parent/src/services/auth_service.dart';
 import 'package:pet_parent/src/services/firestore_db.dart';
+import 'package:pet_parent/src/widgets/common/app_bar_widget.dart';
+import 'package:pet_parent/src/widgets/pets_page/add_pet_modal_widget.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:pet_parent/src/models/appointment_model.dart';
 
@@ -34,13 +36,14 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       if (uId != null) {
         final fetchedAppointments = await db.getAllPetsAppointments(uId);
         print("fetchedTasks: $fetchedAppointments");
+
         setState(() {
           appointments = fetchedAppointments;
         });
 
         print("appointments pegos: ${appointments}");
         appointments.forEach((element) {
-          print(element);
+          print(element.toString());
         });
       } else
         (print("O usuário não está logado. uId = null"));
@@ -66,6 +69,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           border: Border.all(color: color.colorPrimary, width: 1.5)),
       showTodayButton: true,
       showDatePickerButton: true,
+      monthViewSettings: MonthViewSettings(
+        appointmentDisplayMode: MonthAppointmentDisplayMode.indicator,
+      ),
       dataSource: AppointmentDataSource(appointments),
     );
   }

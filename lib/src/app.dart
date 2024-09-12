@@ -5,7 +5,6 @@ import 'package:pet_parent/src/user_provider.dart';
 import 'package:pet_parent/src/views/onboarding_view.dart';
 import 'package:pet_parent/src/views/home_view.dart';
 import 'package:pet_parent/src/views/login_view.dart';
-import 'package:pet_parent/src/views/pets_view.dart';
 import 'package:pet_parent/src/views/register_account_view.dart';
 import 'package:pet_parent/src/widgets/auth/auth_check.dart';
 import 'package:pet_parent/src/widgets/pets_page/add_pet_modal_widget.dart';
