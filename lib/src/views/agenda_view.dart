@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
-import 'package:pet_parent/src/views/home_view.dart';
 
 import '../widgets/appointments_page/appointment_modal_widget.dart';
 import '../widgets/appointments_page/calendar_widget.dart';
@@ -43,7 +41,7 @@ class _AgendaPageState extends State<AgendaPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                CalendarWidget(),
+                const CalendarWidget(),
               ],
             ),
           ),
@@ -53,10 +51,9 @@ class _AgendaPageState extends State<AgendaPage> {
                 Positioned(
                     bottom: 10,
                     right: 10,
-                    child: Container(
+                    child: SizedBox(
                       width: 70,
                       height: 70,
-                      //TODO: Antes de montar o modal do form para task, criar o sistema de adicionar pets.
                       child: ElevatedButton(
                         onPressed: () {
                           showDialog(
@@ -64,7 +61,7 @@ class _AgendaPageState extends State<AgendaPage> {
                               builder: (context) => const AppointmentModal());
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(
+                          backgroundColor: WidgetStatePropertyAll<Color>(
                               widget.colors.colorHighlight),
                         ),
                         child: const Text("+",

@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 
 final storage = FirebaseStorage.instance;
 final storageRef = FirebaseStorage.instance.ref();
@@ -22,7 +21,7 @@ Future<File?> selectPetImage() async {
 }
 
 Future<void> uploadPetImage(String petName, Function onImageUploaded) async {
-  String fileName = "petsImages/${petName}.jpg";
+  String fileName = "petsImages/$petName.jpg";
   final petsImagesRef = storageRef.child(fileName);
 
   final imagePath = await selectPetImage();
@@ -42,7 +41,7 @@ Future<void> uploadPetImage(String petName, Function onImageUploaded) async {
 }
 
 Future<String> getPetsImages(String petName) async {
-  final imgRef = storageRef.child('petsImages/${petName}.jpg');
+  final imgRef = storageRef.child('petsImages/$petName.jpg');
   try {
     return imgRef.getDownloadURL();
   } on FirebaseException catch (e) {
@@ -53,6 +52,6 @@ Future<String> getPetsImages(String petName) async {
     }
   } catch (e) {
     print(e);
-    return "ERRO: ${e}";
+    return "ERRO: $e";
   }
 }

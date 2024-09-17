@@ -141,7 +141,7 @@ class DBAuth extends ChangeNotifier {
   Future<void> logOutUser(context) async {
     _isSignedIn = false;
     notifyListeners();
-    print("logado:${isSignedIn}");
+    print("logado:$isSignedIn");
 
     if (_auth.currentUser != null) {
       await _auth.signOut();

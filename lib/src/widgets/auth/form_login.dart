@@ -63,10 +63,10 @@ class _LoginFormState extends State<LoginForm> {
             ElevatedButton(
               onPressed: login,
               style: ButtonStyle(
-                padding: const MaterialStatePropertyAll<EdgeInsetsGeometry?>(
+                padding: const WidgetStatePropertyAll<EdgeInsetsGeometry?>(
                     EdgeInsets.symmetric(vertical: 10, horizontal: 30)),
                 backgroundColor:
-                    MaterialStatePropertyAll<Color>(colors.colorPrimary),
+                    WidgetStatePropertyAll<Color>(colors.colorPrimary),
               ),
               child: Text(
                 fieldName.submmitForm,

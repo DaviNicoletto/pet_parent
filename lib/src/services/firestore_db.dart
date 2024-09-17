@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_parent/src/models/appointment_model.dart';
-import 'package:pet_parent/src/widgets/common/app_bar_widget.dart';
 import 'package:pet_parent/src/widgets/common/dialog_message.dart';
 import '../models/pet_model.dart';
 import '../models/user_model.dart';
@@ -49,7 +48,7 @@ class CloudDatabase extends ChangeNotifier {
   Future<void> addNewAppointment(context, String? userId, String subject,
       String petName, String startTime) async {
     DateTime parsedDate = DateFormat("dd/MM/yyyy HH:mm").parse(startTime);
-    print("DATA TASK: ${parsedDate}");
+    print("DATA TASK: $parsedDate");
     AppConstants constants = AppConstants();
 
     AppointmentModel appointment = AppointmentModel(
@@ -82,6 +81,7 @@ class CloudDatabase extends ChangeNotifier {
   }
 
   Future<void> addNewPet(
+      // ignore: non_constant_identifier_names
       context, name, gender, age, color, SP, breed, userId) async {
     AppConstants constants = AppConstants();
     print('addNewPet');
@@ -221,11 +221,11 @@ class CloudDatabase extends ChangeNotifier {
             await getPetAppointments(userId, currentPetName);
         for (int i = 0; i < singlePetAppointments.length; i++) {
           allAppointments.add(singlePetAppointments[i]);
-          print("adicionou uma task do pet ${currentPetName}");
+          print("adicionou uma task do pet $currentPetName");
         }
       }
 
-      print("GetAllTasks: ${allAppointments}");
+      print("GetAllTasks: $allAppointments");
       return allAppointments;
     } else {
       return [];

@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
-import 'package:pet_parent/src/models/appointment_model.dart';
 import 'package:pet_parent/src/services/auth_service.dart';
-import 'package:pet_parent/src/services/firestore_db.dart';
 import 'package:pet_parent/src/widgets/pets_page/add_pet_modal_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
 
-class customAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const customAppBar({super.key, required this.indexTitle});
+class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
+  const CustomAppBar({super.key, required this.indexTitle});
 
   final int indexTitle;
 
   @override
-  State<customAppBar> createState() => customAppBarState();
+  State<CustomAppBar> createState() => CustomAppBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(60);
@@ -29,13 +26,12 @@ final indexTitles = [
   constants.profilePageTitle
 ];
 
-class customAppBarState extends State<customAppBar> {
+class CustomAppBarState extends State<CustomAppBar> {
   AppColors colors = AppColors();
 
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<DBAuth>(context, listen: false);
-    final CloudDatabase db = CloudDatabase();
 
     return AppBar(
         automaticallyImplyLeading: false,
@@ -47,8 +43,7 @@ class customAppBarState extends State<customAppBar> {
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
           IconButton(onPressed: () async {
-            String? uId = await auth.getLoggedUserId();
-            List<AppointmentModel> teste = await db.getAllPetsAppointments(uId);
+//TODO: APENAS MARCANDO ONDE FICA O BOTÃO DE TESTAR FUNÇÕES. TEST TESTAR TESTE BUTTON BOTAO
           }, icon: const Icon(Icons.bug_report_rounded)),
           IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
           IconButton(

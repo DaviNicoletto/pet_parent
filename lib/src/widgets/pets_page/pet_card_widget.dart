@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 import 'package:pet_parent/src/services/media_storage.dart';
 
@@ -22,7 +19,6 @@ class PetCard extends StatefulWidget {
   State<PetCard> createState() => _PetCardState();
 }
 
-//TODO: ALTERAR O CARD PARA TROCAR O ICONE DE PATINHA PELA FOTO DO PET
 class _PetCardState extends State<PetCard> {
   bool _cardIsExpanded = false;
   AppConstants constants = AppConstants();
@@ -50,7 +46,7 @@ class _PetCardState extends State<PetCard> {
         isLoading = false;
         petHasImg = false;
       });
-      print("Erro ESPERADO ao carregar imagem: ${e}");
+      print("Erro ESPERADO ao carregar imagem: $e");
     }
   }
 
@@ -82,7 +78,7 @@ class _PetCardState extends State<PetCard> {
             leading: _cardIsExpanded
                 ? null
                 : petHasImg
-                    ? Container(height: 100, decoration: BoxDecoration(shape: BoxShape.circle), clipBehavior: Clip.hardEdge,child: Image.network(petImage))
+                    ? Container(height: 100, decoration: const BoxDecoration(shape: BoxShape.circle), clipBehavior: Clip.hardEdge,child: Image.network(petImage))
                     : const Icon(Icons.pets),
             trailing: Icon(_cardIsExpanded
                 ? Icons.keyboard_arrow_up_rounded
@@ -98,9 +94,7 @@ class _PetCardState extends State<PetCard> {
                   Row(
                     children: [
                       isLoading
-                          ? Container(
-                              child: CircularProgressIndicator(),
-                            )
+                          ? const CircularProgressIndicator()
                           : petHasImg
                               ? Container(
                                   width: 60,

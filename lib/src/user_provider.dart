@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'models/user_model.dart';
 
 class UserProvider extends InheritedWidget {
-  UserProvider({super.key, required this.child}) : super(child: child);
+  UserProvider({super.key, required super.child});
 
-  @override
-  final Widget child;
+
   final List<User> users = [];
 
   static UserProvider? of(BuildContext context) {

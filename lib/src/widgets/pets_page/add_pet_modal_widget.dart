@@ -1,8 +1,5 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:path/path.dart';
 import 'package:pet_parent/src/constants/app_constants.dart';
 import 'package:pet_parent/src/services/auth_service.dart';
 import 'package:pet_parent/src/widgets/common/field_form.dart';
@@ -31,7 +28,8 @@ class _PetModalState extends State<PetModal> {
   final TextEditingController _ageControllerPet = TextEditingController();
   final TextEditingController _breedControllerPet = TextEditingController();
   final TextEditingController _colorControllerPet = TextEditingController();
-  TextEditingController _genderControllerPet = TextEditingController();
+  final TextEditingController _genderControllerPet = TextEditingController();
+  // ignore: non_constant_identifier_names
   final TextEditingController _SNControllerPet = TextEditingController();
 
   AppColors colors = AppColors();

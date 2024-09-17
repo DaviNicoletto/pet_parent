@@ -69,14 +69,15 @@ class FirstAcessPageState extends State<FirstAcessPage> {
                       Navigator.of(context).pushReplacementNamed('/register');
                     },
                     style: ButtonStyle(
+                      // ignore: deprecated_member_use
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
-                      padding: const MaterialStatePropertyAll(
+                      padding: const WidgetStatePropertyAll(
                           EdgeInsets.symmetric(vertical: 15, horizontal: 20)),
-                      backgroundColor: MaterialStatePropertyAll<Color>(
+                      backgroundColor: WidgetStatePropertyAll<Color>(
                           colors.colorSecondary),
                       overlayColor:
-                          MaterialStatePropertyAll(colors.colorSecondary),
+                          WidgetStatePropertyAll(colors.colorSecondary),
                     ),
                     child: Text(
                       constants.register,
@@ -109,14 +110,14 @@ class FirstAcessPageState extends State<FirstAcessPage> {
                       Navigator.of(context).pushReplacementNamed('/login');
                     },
                     style: ButtonStyle(
-                      padding: const MaterialStatePropertyAll(
+                      padding: const WidgetStatePropertyAll(
                           EdgeInsets.symmetric(vertical: 15, horizontal: 20)),
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                      shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
                       backgroundColor:
-                          MaterialStatePropertyAll<Color>(colors.colorPrimary),
+                          WidgetStatePropertyAll<Color>(colors.colorPrimary),
                       overlayColor:
-                          MaterialStatePropertyAll(colors.colorHighlight),
+                          WidgetStatePropertyAll(colors.colorHighlight),
                     ),
                     child: Text(
                       constants.login,

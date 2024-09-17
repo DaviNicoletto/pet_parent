@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:pet_parent/src/services/auth_service.dart';
@@ -67,6 +66,7 @@ class AppointmentModalState extends State<AppointmentModal> {
           initialDate: DateTime.now(),
           locale: const Locale('pt', 'BR'));
 
+      if(context.mounted){
       if (selectedDate != null) {
         TimeOfDay? selectedTime = await showTimePicker(
           context: context,
@@ -85,6 +85,7 @@ class AppointmentModalState extends State<AppointmentModal> {
               _dateFormat.format(fullDateTimeSelected);
           print(_taskDateTimeController.text);
         }
+      }
       }
     }
 
@@ -151,7 +152,7 @@ class AppointmentModalState extends State<AppointmentModal> {
                                   color: colors.colorTextDark,
                                 )),
                                 hintText: "Selecione a data",
-                                suffixIcon: Icon(Icons.calendar_today),
+                                suffixIcon: const Icon(Icons.calendar_today),
                               ),
                               readOnly: true,
                               onTap: () => _selectDateTime(context)),

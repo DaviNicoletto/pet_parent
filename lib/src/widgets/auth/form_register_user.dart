@@ -24,11 +24,6 @@ class _RegisterFormState extends State<RegisterForm> {
     GlobalKey<FormState> formKey = GlobalKey();
 
     bool isPassword = true;
-    void toggleShowPassword() {
-      setState(() {
-        isPassword = !isPassword;
-      });
-    }
 
     void save() async {
       final isValid = formKey.currentState?.validate();
@@ -76,12 +71,12 @@ class _RegisterFormState extends State<RegisterForm> {
             ElevatedButton(
               onPressed: save,
               style: ButtonStyle(
-                padding: const MaterialStatePropertyAll<EdgeInsetsGeometry?>(
+                padding: const WidgetStatePropertyAll<EdgeInsetsGeometry?>(
                     EdgeInsets.symmetric(vertical: 10, horizontal: 30)),
-                shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10))),
                 backgroundColor:
-                    MaterialStatePropertyAll<Color>(colors.colorPrimary),
+                    WidgetStatePropertyAll<Color>(colors.colorPrimary),
               ),
               child: Text(
                 fieldName.submmitForm,

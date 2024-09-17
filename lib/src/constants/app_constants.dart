@@ -70,6 +70,7 @@ class FormConstants {
   String get ageField => 'Idade';
   String get genderField => 'Sexo';
   String get breedField => 'Raça';
+  // ignore: non_constant_identifier_names
   String get SNField => 'Necessidades Especiais';
   String get colorField => 'Cor';
   String get passwordField => 'Senha';
